@@ -862,7 +862,7 @@ void SmallPacket0x01A(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                     return;
                 }
             }
-            PChar->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_MOUNTED, EFFECT_MOUNTED, (MountID ? ++MountID : 0), 0, 1800), true);
+            PChar->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_MOUNTED, EFFECT_MOUNTED, ++MountID, 0, 1800), true);
             PChar->PRecastContainer->Add(RECAST_ABILITY, 256, 60);
             PChar->pushPacket(new CCharRecastPacket(PChar));
         }

@@ -589,6 +589,7 @@ public:
 
     int32 getPetName(lua_State*);
     int32 setPetName(lua_State*);
+    int32 registerChocobo(lua_State*);
 
     int32 getCharmChance(lua_State*);        // Gets the chance the entity has to charm its target.
     int32 charmPet(lua_State*);              // Charms Pet (Beastmaster ability only)

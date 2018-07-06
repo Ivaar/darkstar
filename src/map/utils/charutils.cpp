@@ -784,6 +784,15 @@ namespace charutils
             PChar->menuConfigFlags.flags = (uint32)Sql_GetUIntData(SqlHandle, 2);
         }
 
+        ret = Sql_Query(SqlHandle, "SELECT field_chocobo FROM char_pet WHERE charid = %u;", PChar->id);
+
+        if (ret != SQL_ERROR &&
+            Sql_NumRows(SqlHandle) != 0 &&
+            Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+        {
+            PChar->m_FieldChocobo = (uint32)Sql_GetUIntData(SqlHandle, 0);
+        }
+
         charutils::LoadInventory(PChar);
         PChar->m_event.EventID = luautils::OnZoneIn(PChar);
 

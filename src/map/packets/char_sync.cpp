@@ -39,6 +39,13 @@ CCharSyncPacket::CCharSyncPacket(CCharEntity* PChar)
     ref<uint16>(0x06) = PChar->targid;
     ref<uint32>(0x08) = PChar->id;
     ref<uint8>(0x10) = PChar->StatusEffectContainer->HasStatusEffect(EFFECT_LEVEL_SYNC) ? 4 : 0; 	// 0x02 - Campaign Battle, 0x04 - Level Sync
+
+    if (PChar->animation == ANIMATION_CHOCOBO)
+    {
+        ref<uint8>(0x13) = PChar->StatusEffectContainer->GetStatusEffect(EFFECT_MOUNTED)->GetPower() ? 0x40 : 0x20;
+        ref<uint32>(0x18) = PChar->m_FieldChocobo;
+    }
+
     ref<uint8>(0x25) = PChar->jobs.job[PChar->GetMJob()];	// реальный уровень персонажа (при ограничении уровня отличается от m_mlvl)
     ref<uint8>(0x27) = 0x01;
 }

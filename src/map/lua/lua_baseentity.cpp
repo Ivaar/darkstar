@@ -11925,6 +11925,29 @@ inline int32 CLuaBaseEntity::setPetName(lua_State *L)
 }
 
 /************************************************************************
+*  Function: registerChocobo()
+*  Purpose : Register a chocobo to be called in the field
+*  Example : player:registerChocobo()
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::registerChocobo(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    if (!lua_isnil(L, 1) && lua_isnumber(L, 1))
+    {
+        uint32 value = (uint32)lua_tointeger(L, 1);
+
+        ((CCharEntity*)m_PBaseEntity)->m_FieldChocobo = value;
+
+        Sql_Query(SqlHandle, "UPDATE char_pet SET field_chocobo = %u WHERE charid = %u;", value, m_PBaseEntity->id);
+    }
+    return 0;
+}
+
+/************************************************************************
 *  Function: getCharmChance()
 *  Purpose : Returns decimal value of the chances of charming an Entity
 *  Example : player:getCharmChance(target, false)
@@ -14221,6 +14244,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getPetName),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setPetName),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,registerChocobo),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getCharmChance),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,charmPet),

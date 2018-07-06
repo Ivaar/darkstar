@@ -30,6 +30,7 @@
 #include "../vana_time.h"
 #include "../utils/zoneutils.h"
 #include "../instance.h"
+#include "../status_effect_container.h"
 
 /************************************************************************
 *                                                                       *
@@ -122,6 +123,10 @@ CZoneInPacket::CZoneInPacket(CCharEntity * PChar, int16 csid)
     ref<uint8>(0x1D) = PChar->speedsub;
     ref<uint8>(0x1E) = PChar->GetHPP();
     ref<uint8>(0x1F) = PChar->animation;
+
+    if (PChar->animation == ANIMATION_CHOCOBO)
+        ref<uint8>(0x20) = PChar->StatusEffectContainer->GetStatusEffect(EFFECT_MOUNTED)->GetPower() ? 0x40 : 0x20;
+
     ref<uint8>(0x21) = PChar->GetGender() * 128 + (1 << PChar->look.size);
 
     look_t *look = (PChar->getStyleLocked() ? &PChar->mainlook : &PChar->look);
@@ -200,5 +205,5 @@ CZoneInPacket::CZoneInPacket(CCharEntity * PChar, int16 csid)
     ref<uint32>(0xE8) = PChar->GetMaxHP();
     ref<uint32>(0xEC) = PChar->GetMaxMP();
 
-    ref<uint8>(0x100) = 0x01;
+    ref<uint8>(0x100) = 0x01; // observed: RoZ = 3, CoP = 5, ToAU = 9, WoTG = 11, SoA/original areas = 1
 }
