@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: VeLugannon Palace
---  NPC: Zipacna
+--  Mob: Zipacna
 -----------------------------------
 require("scripts/globals/pathfind");
 
@@ -84,9 +84,6 @@ local path =
     -209, 0, 387,
     -202, 0, 391,
 };
-
-function onMobSpawn(mob)
-end;
 
 function onMobSpawn(mob)
     onMobRoam(mob);

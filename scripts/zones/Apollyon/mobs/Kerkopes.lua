@@ -1,19 +1,9 @@
 -----------------------------------
 -- Area: Apollyon NE
---  NPC: Kerkopes
-
------------------------------------
-package.loaded["scripts/zones/Apollyon/TextIDs"] = nil;
+--  Mob: Kerkopes
 -----------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Apollyon/TextIDs");
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
-
-function onMobEngaged(mob,target)
-end;
 
 function onMobDeath(mob, player, isKiller)
 end;

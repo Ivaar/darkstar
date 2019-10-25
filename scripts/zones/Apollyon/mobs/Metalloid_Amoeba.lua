@@ -1,19 +1,9 @@
 -----------------------------------
 -- Area: Apollyon SE
---  NPC: Metalloid_Amoeba
-
------------------------------------
-package.loaded["scripts/zones/Apollyon/TextIDs"] = nil;
+--  Mob: Metalloid Amoeba
 -----------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Apollyon/TextIDs");
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
-
-function onMobEngaged(mob,target)
-end;
 
 function onMobDeath(mob, player, isKiller)
 end;

@@ -3,10 +3,6 @@
 --  NPC: Thali Mhobrum
 -- Standard Info NPC
 -----------------------------------
-package.loaded["scripts/zones/Kazham/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Kazham/TextIDs");
------------------------------------
 
 local path =
 {
@@ -36,7 +32,7 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    if (player:getVar("BathedInScent") == 1) then
+    if (player:getCharVar("BathedInScent") == 1) then
         player:startEvent(163); -- scent from Blue Rafflesias
         npc:wait();
     else
@@ -51,4 +47,3 @@ end;
 function onEventFinish(player,csid,option,npc)
     npc:wait(0);
 end;
-

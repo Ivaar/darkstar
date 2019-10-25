@@ -46,7 +46,7 @@ CLatentEffectContainer::CLatentEffectContainer(CCharEntity* PEntity) :
 *																		*
 ************************************************************************/
 
-void CLatentEffectContainer::AddLatentEffects(std::vector<CItemArmor::itemLatent>& latentList, uint8 reqLvl, uint8 slot)
+void CLatentEffectContainer::AddLatentEffects(std::vector<CItemEquipment::itemLatent>& latentList, uint8 reqLvl, uint8 slot)
 {
     for (auto& latent : latentList)
     {
@@ -73,6 +73,26 @@ void CLatentEffectContainer::DelLatentEffects(uint8 reqLvl, uint8 slot)
     }), m_LatentEffectList.end());
 }
 
+void CLatentEffectContainer::AddLatentEffect(LATENT conditionID, uint16 conditionValue, Mod modID, int16 modValue)
+{
+    m_LatentEffectList.emplace_back(m_POwner, conditionID, conditionValue, MAX_SLOTTYPE, modID, modValue);
+}
+
+bool CLatentEffectContainer::DelLatentEffect(LATENT conditionID, uint16 conditionValue, Mod modID, int16 modValue)
+{
+    // Find and remove the first instance of the latent matching the parameters
+    for (auto iter = m_LatentEffectList.begin(); iter != m_LatentEffectList.end(); ++iter)
+    {
+        CLatentEffect& latent = *iter;
+        if (latent.GetConditionsID() == conditionID && latent.GetConditionsValue() == conditionValue && latent.GetModValue() == modID && latent.GetModPower() == modValue)
+        {
+            m_LatentEffectList.erase(iter);
+            return true;
+        }
+    }
+    return false;
+}
+
 /************************************************************************
 *																		*
 *  Checks all latents that are affected by HP and activates them if  	*
@@ -90,6 +110,8 @@ void CLatentEffectContainer::CheckLatentsHP()
         case LATENT_HP_OVER_PERCENT:
         case LATENT_HP_UNDER_TP_UNDER_100:
         case LATENT_HP_OVER_TP_UNDER_100:
+        case LATENT_SANCTION_REGEN_BONUS:
+        case LATENT_SIGIL_REGEN_BONUS:
         case LATENT_HP_OVER_VISIBLE_GEAR:
             return ProcessLatentEffect(latentEffect);
             break;
@@ -116,6 +138,8 @@ void CLatentEffectContainer::CheckLatentsTP()
         case LATENT_TP_OVER:
         case LATENT_HP_UNDER_TP_UNDER_100:
         case LATENT_HP_OVER_TP_UNDER_100:
+        case LATENT_SANCTION_REFRESH_BONUS:
+        case LATENT_SIGIL_REFRESH_BONUS:
             return ProcessLatentEffect(latentEffect);
             break;
         default:
@@ -587,6 +611,7 @@ void CLatentEffectContainer::CheckLatentsZone()
         switch (latentEffect.GetConditionsID())
         {
         case LATENT_ZONE:
+        case LATENT_IN_ASSAULT:
         case LATENT_IN_DYNAMIS:
         case LATENT_WEATHER_ELEMENT:
         case LATENT_NATION_CONTROL:
@@ -618,6 +643,22 @@ void CLatentEffectContainer::CheckLatentsWeather(uint16 weather)
         {
             auto element = zoneutils::GetWeatherElement(battleutils::GetWeather((CBattleEntity*)m_POwner, false, weather));
             return ApplyLatentEffect(latent, latent.GetConditionsValue() == element);
+        }
+        return false;
+    });
+}
+
+void CLatentEffectContainer::CheckLatentsTargetChange()
+{
+    ProcessLatentEffects([this](CLatentEffect& latentEffect)
+    {
+        switch (latentEffect.GetConditionsID())
+        {
+        case LATENT_SIGNET_BONUS:
+        case LATENT_VS_ECOSYSTEM:
+            return ProcessLatentEffect(latentEffect);
+        default:
+            break;
         }
         return false;
     });
@@ -668,7 +709,7 @@ bool CLatentEffectContainer::ProcessLatentEffect(CLatentEffect& latentEffect)
         expression = ((float)m_POwner->health.hp / m_POwner->health.maxhp) * 100 >= latentEffect.GetConditionsValue() && m_POwner->health.tp < 1000;
         break;
     case LATENT_MP_UNDER_PERCENT:
-        expression = m_POwner->health.maxmp && (float)(m_POwner->health.mp / m_POwner->health.maxmp) * 100 <= latentEffect.GetConditionsValue();
+        expression = m_POwner->health.maxmp && ((float)m_POwner->health.mp / m_POwner->health.maxmp) * 100 <= latentEffect.GetConditionsValue();
         break;
     case LATENT_MP_UNDER:
         expression = m_POwner->health.mp <= latentEffect.GetConditionsValue();
@@ -690,6 +731,24 @@ bool CLatentEffectContainer::ProcessLatentEffect(CLatentEffect& latentEffect)
         break;
     case LATENT_WEAPON_SHEATHED:
         expression = m_POwner->animation != ANIMATION_ATTACK;
+        break;
+    case LATENT_SIGNET_BONUS:
+    {
+        CBattleEntity* PTarget = m_POwner->GetBattleTarget();
+        expression = PTarget != nullptr && m_POwner->GetMLevel() >= PTarget->GetMLevel() && m_POwner->loc.zone->GetRegionID() < 28;
+        break;
+    }
+    case LATENT_SANCTION_REGEN_BONUS:
+        expression = m_POwner->loc.zone->GetRegionID() >= 28 && m_POwner->loc.zone->GetRegionID() <= 32 && ((float)m_POwner->health.hp / m_POwner->health.maxhp) * 100 < latentEffect.GetConditionsValue();
+        break;
+    case LATENT_SANCTION_REFRESH_BONUS:
+        expression = m_POwner->loc.zone->GetRegionID() >= 28 && m_POwner->loc.zone->GetRegionID() <= 32 && ((float)m_POwner->health.mp / m_POwner->health.maxmp) * 100 < latentEffect.GetConditionsValue();
+        break;
+    case LATENT_SIGIL_REGEN_BONUS:
+        expression = m_POwner->loc.zone->GetRegionID() >= 33 && m_POwner->loc.zone->GetRegionID() <= 40 && ((float)m_POwner->health.hp / m_POwner->health.maxhp) * 100 < latentEffect.GetConditionsValue();
+        break;
+    case LATENT_SIGIL_REFRESH_BONUS:
+        expression = m_POwner->loc.zone->GetRegionID() >= 33 && m_POwner->loc.zone->GetRegionID() <= 40 && ((float)m_POwner->health.mp / m_POwner->health.maxmp) * 100 < latentEffect.GetConditionsValue();
         break;
     case LATENT_STATUS_EFFECT_ACTIVE:
         expression = m_POwner->StatusEffectContainer->HasStatusEffect((EFFECT)latentEffect.GetConditionsValue());
@@ -905,11 +964,11 @@ bool CLatentEffectContainer::ProcessLatentEffect(CLatentEffect& latentEffect)
         break;
     case LATENT_MP_UNDER_VISIBLE_GEAR:
         //TODO: figure out if this is actually right
-        //CItemArmor* head = (CItemArmor*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_HEAD]));
-        //CItemArmor* body = (CItemArmor*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_BODY]));
-        //CItemArmor* hands = (CItemArmor*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_HANDS]));
-        //CItemArmor* legs = (CItemArmor*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_LEGS]));
-        //CItemArmor* feet = (CItemArmor*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_FEET]));
+        //CItemEquipment* head = (CItemEquipment*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_HEAD]));
+        //CItemEquipment* body = (CItemEquipment*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_BODY]));
+        //CItemEquipment* hands = (CItemEquipment*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_HANDS]));
+        //CItemEquipment* legs = (CItemEquipment*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_LEGS]));
+        //CItemEquipment* feet = (CItemEquipment*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_FEET]));
 
         //int32 visibleMp = 0;
         //visibleMp += (head ? head->getModifier(Mod::MP) : 0);
@@ -931,11 +990,11 @@ bool CLatentEffectContainer::ProcessLatentEffect(CLatentEffect& latentEffect)
         break;
     case LATENT_HP_OVER_VISIBLE_GEAR:
         //TODO: figure out if this is actually right
-        //CItemArmor* head = (CItemArmor*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_HEAD]));
-        //CItemArmor* body = (CItemArmor*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_BODY]));
-        //CItemArmor* hands = (CItemArmor*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_HANDS]));
-        //CItemArmor* legs = (CItemArmor*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_LEGS]));
-        //CItemArmor* feet = (CItemArmor*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_FEET]));
+        //CItemEquipment* head = (CItemEquipment*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_HEAD]));
+        //CItemEquipment* body = (CItemEquipment*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_BODY]));
+        //CItemEquipment* hands = (CItemEquipment*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_HANDS]));
+        //CItemEquipment* legs = (CItemEquipment*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_LEGS]));
+        //CItemEquipment* feet = (CItemEquipment*)(m_POwner->getStorage(LOC_INVENTORY)->GetItem(m_POwner->equip[SLOT_FEET]));
 
         //int32 visibleHp = 0;
         //visibleHp += (head ? head->getModifier(Mod::HP) : 0);
@@ -971,6 +1030,9 @@ bool CLatentEffectContainer::ProcessLatentEffect(CLatentEffect& latentEffect)
     }
     case LATENT_IN_DYNAMIS:
         expression = m_POwner->isInDynamis();
+        break;
+    case LATENT_IN_ASSAULT:
+        expression = m_POwner->isInAssault();
         break;
     case LATENT_FOOD_ACTIVE:
         expression = m_POwner->StatusEffectContainer->HasStatusEffect(EFFECT_FOOD) &&
@@ -1046,6 +1108,12 @@ bool CLatentEffectContainer::ProcessLatentEffect(CLatentEffect& latentEffect)
         break;
     case LATENT_ELEVEN_ROLL_ACTIVE:
         expression = m_POwner->StatusEffectContainer->CheckForElevenRoll();
+        break;
+    case LATENT_VS_ECOSYSTEM:
+        if (CBattleEntity* PTarget = m_POwner->GetBattleTarget())
+        {
+            expression = PTarget->m_EcoSystem == latentEffect.GetConditionsValue();
+        }
         break;
     default:
         latentFound = false;

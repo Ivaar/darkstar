@@ -1,10 +1,7 @@
 -----------------------------------
 -- Area: Bibiki Bay
---  MOB: Shen
+--  Mob: Shen
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobFight(mob,target)
     if (mob:getBattleTime() % 45 == 0) then
@@ -27,7 +24,7 @@ function onMonsterMagicPrepare(mob,target)
     if (rnd < 0.5) then
         return 201; -- waterga 3
     elseif (rnd < 0.7) then
-         return 172; -- water 4
+        return 172; -- water 4
     elseif (rnd < 0.9) then
         return 214; -- flood
     else

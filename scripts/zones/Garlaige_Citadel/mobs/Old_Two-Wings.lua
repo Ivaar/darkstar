@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Garlaige Citadel (200)
---   NM: Old_Two_Wings
+--   NM: Old Two-Wings
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
@@ -13,4 +13,3 @@ function onMobDespawn(mob)
     mob:setRespawnTime(math.random(75600,86400));
 
 end;
-

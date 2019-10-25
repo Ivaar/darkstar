@@ -3,38 +3,38 @@
 -- Zone: Metalworks (237)
 --
 -----------------------------------
-package.loaded["scripts/zones/Metalworks/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/quests");
-require("scripts/globals/zone");
-require("scripts/globals/settings");
-require("scripts/zones/Metalworks/TextIDs");
+local ID = require("scripts/zones/Metalworks/IDs")
+require("scripts/globals/conquest")
+require("scripts/globals/keyitems")
 -----------------------------------
 
 function onInitialize(zone)
-end;
+end
 
 function onZoneIn(player,prevZone)
-    local cs = -1;
-    if (player:getXPos() == 0 and player:getYPos() == 0 and player:getZPos() == 0) then
-        player:setPos(-9.168,0,0.001,128);
+    local cs = -1
+    if player:getXPos() == 0 and player:getYPos() == 0 and player:getZPos() == 0 then
+        player:setPos(-9.168,0,0.001,128)
     end
-    return cs;
-end;
+    return cs
+end
+
+function afterZoneIn(player)
+    if player:hasKeyItem(dsp.ki.MESSAGE_TO_JEUNO_BASTOK) then
+        player:ChangeMusic(0,161)   --  Despair
+        player:ChangeMusic(1,161)   --  Despair
+    end
+end
 
 function onConquestUpdate(zone, updatetype)
-    local players = zone:getPlayers();
-
-    for name, player in pairs(players) do
-        conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
-    end
-end;
+    dsp.conq.onConquestUpdate(zone, updatetype)
+end
 
 function onRegionEnter(player,region)
-end;
+end
 
 function onEventUpdate(player,csid,option)
-end;
+end
 
 function onEventFinish(player,csid,option)
-end;
+end

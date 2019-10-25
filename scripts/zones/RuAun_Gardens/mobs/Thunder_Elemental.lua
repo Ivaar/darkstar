@@ -1,10 +1,10 @@
 -----------------------------------
 -- Area: RuAun Gardens
---  MOB: Thunder Elemental
+--  Mob: Thunder Elemental
 -----------------------------------
-require("scripts/globals/fieldsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkRegime(player,mob,145,3);
+    dsp.regime.checkRegime(player, mob, 145, 3, dsp.regime.type.FIELDS)
 end;

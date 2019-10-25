@@ -1,10 +1,10 @@
 -----------------------------------
 -- Area: West Ronfaure
---  MOB: Orcish Grappler
+--  Mob: Orcish Grappler
 -----------------------------------
-require("scripts/globals/fieldsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkRegime(player,mob,4,1);
-end;
+    dsp.regime.checkRegime(player, mob, 4, 1, dsp.regime.type.FIELDS)
+end

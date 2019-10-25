@@ -1,19 +1,9 @@
 -----------------------------------
 -- Area: Temenos N T
---  NPC: Goblin_Slaughterman
-
------------------------------------
-package.loaded["scripts/zones/Temenos/TextIDs"] = nil;
+--  Mob: Goblin Slaughterman
 -----------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Temenos/TextIDs");
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
-
-function onMobEngaged(mob,target)
-end;
 
 function onMobDeath(mob, player, isKiller)
  local mobID = mob:getID();

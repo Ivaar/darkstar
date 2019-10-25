@@ -1,12 +1,9 @@
 -----------------------------------
 -- Area: The Garden of Ru'Hmet
---  MOB: Ix'aern (drg)'s Wynav
+--  Mob: Ix'aern DRG's Wynav
 -----------------------------------
 require("scripts/globals/status");
 -----------------------------------
-
-function onMobInitialize(mob)
-end;
 
 function onMobSpawn(mob)
     mob:setLocalVar("hpTrigger", math.random(10,75));

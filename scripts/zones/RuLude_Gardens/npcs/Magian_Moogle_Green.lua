@@ -4,11 +4,9 @@
 -- Type: Magian Trials NPC (Job Emotes)
 -- !pos -4.558 2.451 111.305 64
 -----------------------------------
-package.loaded["scripts/zones/RuLude_Gardens/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
-require("scripts/zones/RuLude_Gardens/TextIDs");
+local ID = require("scripts/zones/RuLude_Gardens/IDs");
 require("scripts/globals/magiantrials");
 -----------------------------------
 
@@ -31,7 +29,7 @@ function onTrigger(player,npc)
     local TrialLog = player:hasKeyItem(dsp.ki.MAGIAN_TRIAL_LOG);
     if (player:getMainLvl() < 30) then
         player:startEvent(10151);
-    elseif (player:getVar("MetGreenMagianMog") == 0 and LearnerLog == false) then
+    elseif (player:getCharVar("MetGreenMagianMog") == 0 and LearnerLog == false) then
         if (TrialLog == false) then
             player:startEvent(10160, 0);
         else
@@ -48,10 +46,10 @@ end;
 function onEventFinish(player,csid,option)
     if (csid == 10160 and option == 1) then
         if (player:hasKeyItem(dsp.ki.MAGIAN_TRIAL_LOG) == false) then
-            player:messageSpecial(KEYITEM_OBTAINED,dsp.ki.MAGIAN_LEARNERS_LOG);
+            player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.MAGIAN_LEARNERS_LOG);
             player:addKeyItem(dsp.ki.MAGIAN_LEARNERS_LOG);
         end
-        player:setVar("MetGreenMagianMog",1);
+        player:setCharVar("MetGreenMagianMog",1);
     --elseif
         --
     end

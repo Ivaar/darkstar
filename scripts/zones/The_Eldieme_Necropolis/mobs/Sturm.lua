@@ -1,21 +1,19 @@
 -----------------------------------
 -- Area: The Eldieme Necropolis
--- Mob:  Sturm
+--  Mob: Sturm
 -- Involved in Quest: A New Dawn (BST AF3)
 -----------------------------------
-require("scripts/zones/The_Eldieme_Necropolis/MobIDs");
+local ID = require("scripts/zones/The_Eldieme_Necropolis/IDs");
 require("scripts/globals/quests");
-
-function onMobSpawn(mob)
-end;
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    if (player:getQuestStatus(JEUNO,A_NEW_DAWN) == QUEST_ACCEPTED and player:getVar("ANewDawn_Event") == 4) then
-        player:setVar("ANewDawn_Event",5);
+    if (player:getQuestStatus(JEUNO,dsp.quest.id.jeuno.A_NEW_DAWN) == QUEST_ACCEPTED and player:getCharVar("ANewDawn_Event") == 4) then
+        player:setCharVar("ANewDawn_Event",5);
     end
 
     if (isKiller) then
-        for i = TAIFUN, TROMBE do
+        for i = ID.mob.TAIFUN, ID.mob.TROMBE do
             if (GetMobByID(i):isSpawned()) then
                 DespawnMob(i);
             end

@@ -4,14 +4,12 @@
 -- Type: Assault
 -- !pos -274.334 -9.287 -64.255 79
 -----------------------------------
-package.loaded["scripts/zones/Caedarva_Mire/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 require("scripts/globals/missions");
 require("scripts/globals/quests");
-require("scripts/zones/Caedarva_Mire/TextIDs");
+local ID = require("scripts/zones/Caedarva_Mire/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -19,18 +17,18 @@ end;
 
 function onTrigger(player,npc)
     local toauMission = player:getCurrentMission(TOAU);
-    local beginnings = player:getQuestStatus(AHT_URHGAN,BEGINNINGS);
+    local beginnings = player:getQuestStatus(AHT_URHGAN,dsp.quest.id.ahtUrhgan.BEGINNINGS);
 
     -- IMMORTAL SENTRIES
-    if (toauMission == IMMORTAL_SENTRIES) then
+    if (toauMission == dsp.mission.id.toau.IMMORTAL_SENTRIES) then
         if (player:hasKeyItem(dsp.ki.SUPPLIES_PACKAGE)) then
             player:startEvent(5);
-        elseif (player:getVar("AhtUrganStatus") == 1) then
+        elseif (player:getCharVar("AhtUrganStatus") == 1) then
             player:startEvent(6);
         end;
 
     -- SHADES OF VENGEANCE
-    elseif (toauMission == SHADES_OF_VENGEANCE and player:hasKeyItem(dsp.ki.PERIQIA_ASSAULT_AREA_ENTRY_PERMIT) == false and vanaDay() > player:getVar("TOAUM31_PERMITDAY")) then
+    elseif (toauMission == dsp.mission.id.toau.SHADES_OF_VENGEANCE and player:hasKeyItem(dsp.ki.PERIQIA_ASSAULT_AREA_ENTRY_PERMIT) == false and vanaDay() > player:getCharVar("TOAUM31_PERMITDAY")) then
         player:startEvent(22);
 
     -- BEGINNINGS
@@ -42,7 +40,7 @@ function onTrigger(player,npc)
         end;
 
     -- ASSAULT
-    elseif (toauMission >= PRESIDENT_SALAHEEM) then
+    elseif (toauMission >= dsp.mission.id.toau.PRESIDENT_SALAHEEM) then
         local IPpoint = player:getCurrency("imperial_standing");
         if (player:hasKeyItem(dsp.ki.PERIQIA_ASSAULT_ORDERS) and player:hasKeyItem(dsp.ki.ASSAULT_ARMBAND) == false) then
             player:startEvent(148,50,IPpoint);
@@ -64,23 +62,23 @@ function onEventFinish(player,csid,option)
     -- IMMORTAL SENTRIES
     if (csid == 5 and option == 1) then
         player:delKeyItem(dsp.ki.SUPPLIES_PACKAGE);
-        player:setVar("AhtUrganStatus",1);
+        player:setCharVar("AhtUrganStatus",1);
 
     -- SHADES OF VENGEANCE
     elseif (csid == 22) then
-        player:setVar("TOAUM31_PERMITDAY",vanaDay());
+        player:setCharVar("TOAUM31_PERMITDAY",vanaDay());
         player:addKeyItem(dsp.ki.PERIQIA_ASSAULT_AREA_ENTRY_PERMIT);
-        player:messageSpecial(KEYITEM_OBTAINED,dsp.ki.PERIQIA_ASSAULT_AREA_ENTRY_PERMIT);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.PERIQIA_ASSAULT_AREA_ENTRY_PERMIT);
 
     -- BEGINNINGS
     elseif (csid == 10) then
         player:addKeyItem(dsp.ki.BRAND_OF_THE_GALESERPENT);
-        player:messageSpecial(KEYITEM_OBTAINED,dsp.ki.BRAND_OF_THE_GALESERPENT);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.BRAND_OF_THE_GALESERPENT);
 
     -- ASSAULT
     elseif (csid == 148 and option == 1) then
         player:delCurrency("imperial_standing", 50);
         player:addKeyItem(dsp.ki.ASSAULT_ARMBAND);
-        player:messageSpecial(KEYITEM_OBTAINED,dsp.ki.ASSAULT_ARMBAND);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.ASSAULT_ARMBAND);
     end;
 end;

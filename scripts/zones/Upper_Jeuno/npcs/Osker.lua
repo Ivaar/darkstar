@@ -3,17 +3,15 @@
 --  NPC: Osker
 -- Involved in Quest: Chocobo's Wounds
 -----------------------------------
-package.loaded["scripts/zones/Upper_Jeuno/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/quests");
 require("scripts/globals/keyitems");
-require("scripts/zones/Upper_Jeuno/TextIDs");
+local ID = require("scripts/zones/Upper_Jeuno/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
 
-    local ANewDawnEvent = player:getVar("ANewDawn_Event");
+    local ANewDawnEvent = player:getCharVar("ANewDawn_Event");
 
     if (trade:hasItemQty(717,1) and trade:getItemCount() == 1 and ANewDawnEvent == 3) then
         player:tradeComplete();
@@ -24,11 +22,11 @@ end;
 
 function onTrigger(player,npc)
 
-    local ANewDawn = player:getQuestStatus(JEUNO,A_NEW_DAWN);
-    local ANewDawnEvent = player:getVar("ANewDawn_Event");
+    local ANewDawn = player:getQuestStatus(JEUNO,dsp.quest.id.jeuno.A_NEW_DAWN);
+    local ANewDawnEvent = player:getCharVar("ANewDawn_Event");
 
-    local ChocobosWounds = player:getQuestStatus(JEUNO,CHOCOBO_S_WOUNDS);
-    local feed = player:getVar("ChocobosWounds_Event");
+    local ChocobosWounds = player:getQuestStatus(JEUNO,dsp.quest.id.jeuno.CHOCOBO_S_WOUNDS);
+    local feed = player:getCharVar("ChocobosWounds_Event");
 
     -- A New Dawn
     if (ANewDawn == QUEST_ACCEPTED) then
@@ -71,18 +69,16 @@ end;
 
 function onEventFinish(player,csid,option)
 
-    local ANewDawnEvent = player:getVar("ANewDawn_Event");
+    local ANewDawnEvent = player:getCharVar("ANewDawn_Event");
 
     if (csid == 146) then
         if (ANewDawnEvent == 2) then
-            player:setVar("ANewDawn_Event",3);
+            player:setCharVar("ANewDawn_Event",3);
         end
     elseif (csid == 148) then
-        player:addKeyItem(217);
-        player:messageSpecial(KEYITEM_OBTAINED, 217);
-        player:setVar("ANewDawn_Event",4);
+        player:addKeyItem(dsp.ki.TAMERS_WHISTLE);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED, dsp.ki.TAMERS_WHISTLE);
+        player:setCharVar("ANewDawn_Event",4);
     end
 
 end;
-
-

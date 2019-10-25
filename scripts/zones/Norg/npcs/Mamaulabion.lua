@@ -2,8 +2,7 @@
 -- Area: Norg
 --  NPC: Mamaulabion
 -- Starts and finishes Quest: Mama Mia
--- @zone 252
--- !pos -57 -9 68 (88)
+-- !pos -57 -9 68 252
 
 --CSIDs for Mamaulabion
 --93 / 93 = Standard
@@ -27,17 +26,15 @@
 --will require changing other avatar quests and making a variable for it all. (if this gets scripted, please remove this comment)
 
 -----------------------------------
-package.loaded["scripts/zones/Norg/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/quests");
-require("scripts/zones/Norg/TextIDs");
+local ID = require("scripts/zones/Norg/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
 
-    if (player:getQuestStatus(OUTLANDS,MAMA_MIA) == QUEST_ACCEPTED) then
-        local tradesMamaMia = player:getVar("tradesMamaMia")
+    if (player:getQuestStatus(OUTLANDS,dsp.quest.id.outlands.MAMA_MIA) == QUEST_ACCEPTED) then
+        local tradesMamaMia = player:getCharVar("tradesMamaMia")
         if (trade:hasItemQty(1202,1) and trade:getItemCount() == 1) then -- Trade Bubbly water
             wasSet = player:getMaskBit(tradesMamaMia,0)
             tradesMamaMia = player:setMaskBit(tradesMamaMia,"tradesMamaMia",0,true)
@@ -120,11 +117,11 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    local MamaMia = player:getQuestStatus(OUTLANDS,MAMA_MIA);
-    local moonlitPath = player:getQuestStatus(WINDURST,THE_MOONLIT_PATH);
+    local MamaMia = player:getQuestStatus(OUTLANDS,dsp.quest.id.outlands.MAMA_MIA);
+    local moonlitPath = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.THE_MOONLIT_PATH);
     local EvokersRing = player:hasItem(14625);
     local realday = tonumber(os.date("%j"));  -- %M for next minute, %j for next day
-    local questday = player:getVar("MamaMia_date")
+    local questday = player:getCharVar("MamaMia_date")
 
 
 
@@ -132,7 +129,7 @@ function onTrigger(player,npc)
         player:startEvent(191); -- Start Quest "Mama Mia"
 
     elseif (MamaMia == QUEST_ACCEPTED) then
-    local tradesMamaMia = player:getVar("tradesMamaMia")
+    local tradesMamaMia = player:getCharVar("tradesMamaMia")
     local maskFull = player:isMaskFull(tradesMamaMia,7)
         if (maskFull) then
             if (realday == questday) then
@@ -162,30 +159,30 @@ end;
 function onEventFinish(player,csid,option)
 
     if (csid == 191) then
-        player:addQuest(OUTLANDS,MAMA_MIA);
+        player:addQuest(OUTLANDS,dsp.quest.id.outlands.MAMA_MIA);
 
     elseif (csid == 193) then
         player:tradeComplete();
 
     elseif (csid == 195) then
         player:tradeComplete();
-        player:setVar("MamaMia_date", os.date("%j")); -- %M for next minute, %j for next day
+        player:setCharVar("MamaMia_date", os.date("%j")); -- %M for next minute, %j for next day
 
     elseif (csid == 197) then
         if (player:getFreeSlotsCount() == 0) then
-            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,14625); -- Evokers Ring
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,14625); -- Evokers Ring
         else
             player:addItem(14625); -- Evokers Ring
-            player:messageSpecial(ITEM_OBTAINED,14625); -- Evokers Ring
+            player:messageSpecial(ID.text.ITEM_OBTAINED,14625); -- Evokers Ring
             player:addFame(NORG,30); --idk how much fame the quest adds, just left at 30 which the levi quest gave.
-            player:completeQuest(OUTLANDS,MAMA_MIA);
-            player:setVar("tradesMamaMia",0)
+            player:completeQuest(OUTLANDS,dsp.quest.id.outlands.MAMA_MIA);
+            player:setCharVar("tradesMamaMia",0)
         end
 
     elseif (csid == 243) then
         if (option == 1) then
-            player:delQuest(OUTLANDS,MAMA_MIA);
-            player:addQuest(OUTLANDS,MAMA_MIA);
+            player:delQuest(OUTLANDS,dsp.quest.id.outlands.MAMA_MIA);
+            player:addQuest(OUTLANDS,dsp.quest.id.outlands.MAMA_MIA);
         end
     end
 end;

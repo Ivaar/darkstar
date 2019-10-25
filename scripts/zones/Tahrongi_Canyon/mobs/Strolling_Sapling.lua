@@ -1,10 +1,10 @@
 -----------------------------------
 -- Area: Tahrongi Canyon
---  MOB: Strolling Sapling
+--  Mob: Strolling Sapling
 -----------------------------------
-require("scripts/globals/fieldsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkRegime(player,mob,30,1);
-end;
+    dsp.regime.checkRegime(player, mob, 30, 1, dsp.regime.type.FIELDS)
+end

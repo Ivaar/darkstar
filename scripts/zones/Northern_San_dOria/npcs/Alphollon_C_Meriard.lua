@@ -2,12 +2,9 @@
 -- Area: Northern San d'Oria
 --  NPC: Alphollon C Meriard
 -- Type: Purifies cursed items with their corresponding abjurations.
--- @zone 231
--- !pos 98.108 -1 137.999
+-- !pos 98.108 -1 137.999 231
 -----------------------------------
-package.loaded["scripts/zones/Northern_San_dOria/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Northern_San_dOria/TextIDs");
+local ID = require("scripts/zones/Northern_San_dOria/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -55,7 +52,7 @@ function onTrade(player,npc,trade)
         if (reward ~= 0) then
             --Trade pair for a nice reward.
             player:startEvent(720,item,reward);
-            player:setVar("reward",reward);
+            player:setCharVar("reward",reward);
         end
     end
 end;
@@ -69,12 +66,12 @@ end;
 
 function onEventFinish(player,csid,option)
     if (csid == 720) then
-        local reward = player:getVar("reward");
+        local reward = player:getCharVar("reward");
         if (reward ~= 0) then
             player:tradeComplete();
             player:addItem(reward);
-            player:setVar("reward",0);
-            player:messageSpecial(ITEM_OBTAINED,reward);
+            player:setCharVar("reward",0);
+            player:messageSpecial(ID.text.ITEM_OBTAINED,reward);
         end
     end
 end;

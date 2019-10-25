@@ -1,14 +1,13 @@
 -----------------------------------
--- Area: Dynamis San d'Oria
---  NPC: Vanguard Gutslasher
+-- Area: Dynamis - San d'Oria
+--  Mob: Vanguard Gutslasher
+-----------------------------------
+mixins =
+{
+    require("scripts/mixins/dynamis_beastmen"),
+    require("scripts/mixins/job_special")
+}
 -----------------------------------
 
-mixins = {require("scripts/mixins/job_special")};
-require("scripts/globals/status");
-
-
-function onMobSpawn(mob)
-end;
-
 function onMobDeath(mob, player, isKiller)
-end;
+end

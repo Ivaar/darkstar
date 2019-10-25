@@ -1,10 +1,7 @@
-----------------------------------
+-----------------------------------
 -- Area: Gustav Tunnel
---  NM:  Wyvernpoacher Drachlox
+--   NM: Wyvernpoacher Drachlox
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end;
-
-function onMobDespawn(mob)
 end;

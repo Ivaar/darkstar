@@ -3,33 +3,20 @@
 --  NPC: HomePoint#3
 -- !pos -92 -5 62 241
 -----------------------------------
-package.loaded["scripts/zones/Windurst_Woods/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/settings");
-require("scripts/zones/Windurst_Woods/TextIDs");
-require("scripts/globals/homepoint");
+require("scripts/globals/homepoint")
 -----------------------------------
 
-function onTrade(player,npc,trade)
-end;
+local hpEvent = 8702
+local hpIndex = 27
 
-function onTrigger(player,npc)
+function onTrigger(player, npc)
+    dsp.homepoint.onTrigger(player, hpEvent, hpIndex)
+end
 
-    homepointMenu(player, 8702, 27);
-end;
+function onEventUpdate(player, csid, option)
+    dsp.homepoint.onEventUpdate(player, csid, option)
+end
 
-function onEventUpdate(player,csid,option)
-end;
-
-function onEventFinish(player,csid,option)
-
-    if (csid == 8702) then
-
-        if (option == 1) then
-            player:setHomePoint();
-            player:messageSpecial(HOMEPOINT_SET);
-        else
-            hpTeleport(player, option);
-        end
-    end
-end;
+function onEventFinish(player, csid, option)
+    dsp.homepoint.onEventFinish(player, csid, option, hpEvent)
+end

@@ -1,13 +1,11 @@
-----------------------------------
--- Area: Yuhtunga Jungle
---  NM:  Mischievous Micholas
 -----------------------------------
-require("scripts/globals/fieldsofvalor");
+-- Area: Yuhtunga Jungle
+--   NM: Mischievous Micholas
+-----------------------------------
+require("scripts/globals/regimes")
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkRegime(player,mob,126,1);
-    checkRegime(player,mob,128,1);
-end;
-
-function onMobDespawn(mob)
-end;
+    dsp.regime.checkRegime(player, mob, 126, 1, dsp.regime.type.FIELDS)
+    dsp.regime.checkRegime(player, mob, 128, 1, dsp.regime.type.FIELDS)
+end

@@ -1,11 +1,11 @@
 -----------------------------------
 -- Area: Ve'Lugannon Palace
---  MOB: Dustbuster
+--  Mob: Dustbuster
 -----------------------------------
-require("scripts/globals/groundsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkGoVregime(player,mob,743,1);
-    checkGoVregime(player,mob,745,1);
+    dsp.regime.checkRegime(player, mob, 743, 1, dsp.regime.type.GROUNDS)
+    dsp.regime.checkRegime(player, mob, 745, 1, dsp.regime.type.GROUNDS)
 end;

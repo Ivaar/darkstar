@@ -3,36 +3,24 @@
 -- dsp.effect.EVASION_DOWN
 --
 -----------------------------------
-require("scripts/globals/status");
+require("scripts/globals/status")
+-----------------------------------
 
------------------------------------
--- onEffectGain Action
------------------------------------
-function onEffectGain(target,effect)
-    if (target:getMod(dsp.mod.EVA) - effect:getPower() < 0) then
-        effect:setPower(target:getStat(dsp.mod.EVA));
-    end
-    target:addMod(dsp.mod.EVA,-effect:getPower());
+function onEffectGain(target, effect)
+    local power = math.min(effect:getPower(), target:getStat(dsp.mod.EVA))
+    effect:setPower(power)
+    target:delMod(dsp.mod.EVA, power)
 end
 
------------------------------------
--- onEffectTick Action
------------------------------------
-function onEffectTick(target,effect)
-    -- Only Feint uses the tick, restore 10 evasion every tick
-    local evaDownAmt = effect:getPower();
-    if (evaDownAmt > 0) then
-        effect:setPower(evaDownAmt - 10);
-        target:delMod(dsp.mod.EVA, -10);
-    end
+-- only Feint uses tick, which restores 10 evasion per tick
+function onEffectTick(target, effect)
+    local power = effect:getPower()
+    local adj = math.min(power, 10)
+    effect:setPower(power - adj)
+    target:addMod(dsp.mod.EVA, adj)
 end
 
------------------------------------
--- onEffectLose Action
------------------------------------
-function onEffectLose(target,effect)
-    local evaDownAmt = effect:getPower();
-    if (evaDownAmt > 0) then
-        target:delMod(dsp.mod.EVA,-effect:getPower());
-    end
+function onEffectLose(target, effect)
+    local power = effect:getPower()
+    target:addMod(dsp.mod.EVA, power)
 end

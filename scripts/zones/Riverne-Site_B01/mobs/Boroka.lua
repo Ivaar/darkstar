@@ -1,12 +1,9 @@
 -----------------------------------
 -- Area: Riverne - Site B01
---  NM:  Boroka
+--   NM: Boroka
 -----------------------------------
 require("scripts/globals/titles");
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobDeath(mob, player, isKiller)
     player:addTitle(dsp.title.BOROKA_BELEAGUERER);

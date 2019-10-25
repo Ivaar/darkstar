@@ -1,12 +1,15 @@
 -----------------------------------
 -- Area: Waughroon Shrine
--- MOB: Yo'Bhu Hideousmask
--- BCNM Fight: Grimshell Shocktroopers
+--  Mob: Yo'Bhu Hideousmask
+-- BCNM: Grimshell Shocktroopers
 -----------------------------------
-mixins = {require("scripts/mixins/job_special")};
+mixins = {require("scripts/mixins/job_special")}
+require("scripts/globals/status")
+-----------------------------------
 
 function onMobSpawn(mob)
-end;
+    mob:setMobMod(dsp.mobMod.SUPERLINK, mob:getShortID())
+end
 
 function onMobDeath(mob, player, isKiller)
-end;
+end

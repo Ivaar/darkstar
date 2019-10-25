@@ -1,23 +1,13 @@
 -----------------------------------
 -- Area: Apollyon NW
---  NPC: Kaiser Behemoth
-
------------------------------------
-package.loaded["scripts/zones/Apollyon/TextIDs"] = nil;
+--  Mob: Kaiser Behemoth
 -----------------------------------
 require("scripts/globals/status");
-require("scripts/zones/Apollyon/TextIDs");
 require("scripts/globals/magic");
 -----------------------------------
 
 function onMobInitialize(mob)
     mob:setMobMod(dsp.mobMod.MAGIC_COOL, 60);
-end;
-
-function onMobSpawn(mob)
-end;
-
-function onMobEngaged(mob,target)
 end;
 
 function onSpellPrecast(mob, spell)

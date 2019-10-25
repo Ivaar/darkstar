@@ -1,35 +1,21 @@
 -----------------------------------
 -- Area: Eastern_Adoulin
 --  NPC: HomePoint#1
--- !pos
 -----------------------------------
-package.loaded["scripts/zones/Eastern_Adoulin/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/settings");
-require("scripts/zones/Eastern_Adoulin/TextIDs");
-require("scripts/globals/homepoint");
+require("scripts/globals/homepoint")
 -----------------------------------
 
-function onTrade(player,npc,trade)
-end;
+local hpEvent = 8700
+local hpIndex = 45
 
-function onTrigger(player,npc)
+function onTrigger(player, npc)
+    dsp.homepoint.onTrigger(player, hpEvent, hpIndex)
+end
 
-    homepointMenu(player, 8700, 45);
-end;
+function onEventUpdate(player, csid, option)
+    dsp.homepoint.onEventUpdate(player, csid, option)
+end
 
-function onEventUpdate(player,csid,option)
-end;
-
-function onEventFinish(player,csid,option)
-
-    if (csid == 8700) then
-
-        if (option == 1) then
-            player:setHomePoint();
-            player:messageSpecial(HOMEPOINT_SET);
-        else
-            hpTeleport(player, option);
-        end
-    end
-end;
+function onEventFinish(player, csid, option)
+    dsp.homepoint.onEventFinish(player, csid, option, hpEvent)
+end

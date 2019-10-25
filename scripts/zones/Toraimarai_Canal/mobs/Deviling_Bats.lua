@@ -1,10 +1,10 @@
 -----------------------------------
--- Area: Toraimorai Canal
---  MOB: Deviling Bat
+-- Area: Toraimarai Canal
+--  Mob: Deviling Bats
 -----------------------------------
-require("scripts/globals/groundsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkGoVregime(player,mob,622,2);
-end;
+    dsp.regime.checkRegime(player, mob, 622, 2, dsp.regime.type.GROUNDS)
+end

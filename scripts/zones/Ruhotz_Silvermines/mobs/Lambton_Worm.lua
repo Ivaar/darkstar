@@ -1,12 +1,9 @@
 -----------------------------------
--- Area: BCNM
---  MOB: Lambton Worm
+-- Area: Ruhotz Silvermines
+--  Mob: Lambton Worm
 -----------------------------------
 require("scripts/globals/titles");
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobDeath(mob, player, isKiller)
     player:addTitle(dsp.title.LAMBTON_WORM_DESEGMENTER);

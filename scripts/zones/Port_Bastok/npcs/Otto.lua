@@ -3,8 +3,7 @@
 --  NPC: Otto
 -- Standard Info NPC
 -- Involved in Quest: The Siren's Tear
--- @zone 236
--- !pos -145.929 -7.48 -13.701
+-- !pos -145.929 -7.48 -13.701 236
 -----------------------------------
 require("scripts/globals/quests");
 -----------------------------------
@@ -13,9 +12,9 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    local SirensTear = player:getQuestStatus(BASTOK,THE_SIREN_S_TEAR);
+    local SirensTear = player:getQuestStatus(BASTOK,dsp.quest.id.bastok.THE_SIREN_S_TEAR);
 
-    if (SirensTear == QUEST_ACCEPTED and player:getVar("SirensTear") == 0) then
+    if (SirensTear == QUEST_ACCEPTED and player:getCharVar("SirensTear") == 0) then
         player:startEvent(5);
     else
         player:startEvent(20);

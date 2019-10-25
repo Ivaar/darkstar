@@ -1,10 +1,7 @@
 -----------------------------------
 -- Area: Buburimu Peninsula (118)
---  MOB: Helldiver
+--  Mob: Helldiver
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end;
-
-function onMobDespawn(mob)
 end;

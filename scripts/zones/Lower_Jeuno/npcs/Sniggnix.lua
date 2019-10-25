@@ -2,19 +2,17 @@
 -- Area: Lower Jeuno
 --   NPC: Sniggnix
 -- Type: Standard NPC
--- @zone 245
--- !pos -45.832 4.498 -135.029
+-- !pos -45.832 4.498 -135.029 245
 --
 -- Auto-Script: Requires Verification (Verfied by Brawndo)
 -----------------------------------
-package.loaded["scripts/zones/Lower_Jeuno/TextIDs"] = nil;
------------------------------------
+local ID = require("scripts/zones/Lower_Jeuno/IDs")
 require("scripts/globals/keyitems");
 -----------------------------------
 
 function onTrade(player,npc,trade)
 
-    thickAsThievesGamblingCS = player:getVar("thickAsThievesGamblingCS");
+    thickAsThievesGamblingCS = player:getCharVar("thickAsThievesGamblingCS");
 
     if (trade:hasItemQty(1092,1) and trade:getItemCount() == 1 and thickAsThievesGamblingCS == 7) then -- Trade Regal die
         rand1 = math.random(1,700);
@@ -25,7 +23,7 @@ end;
 
 function onTrigger(player,npc)
 
-    thickAsThievesGamblingCS = player:getVar("thickAsThievesGamblingCS");
+    thickAsThievesGamblingCS = player:getCharVar("thickAsThievesGamblingCS");
 
     if (thickAsThievesGamblingCS == 1) then
         rand1 = math.random(1,999);
@@ -46,15 +44,14 @@ end;
 function onEventFinish(player,csid,option)
 
     if (csid == 10024 and option == 1) then                -- player won first dice game
-        player:setVar("thickAsThievesGamblingCS",2);
+        player:setCharVar("thickAsThievesGamblingCS",2);
     elseif (csid == 10026) then
         player:tradeComplete();
-        player:setVar("thickAsThievesGamblingCS",8);
+        player:setCharVar("thickAsThievesGamblingCS",8);
         player:delKeyItem(dsp.ki.SECOND_FORGED_ENVELOPE);
         player:addKeyItem(dsp.ki.SECOND_SIGNED_FORGED_ENVELOPE);
-        player:messageSpecial(KEYITEM_OBTAINED,dsp.ki.SECOND_SIGNED_FORGED_ENVELOPE);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.SECOND_SIGNED_FORGED_ENVELOPE);
     end
 
 
 end;
-

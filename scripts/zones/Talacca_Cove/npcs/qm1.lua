@@ -3,9 +3,7 @@
 --  NPC: ??? (corsair job flag quest)
 --
 -----------------------------------
-package.loaded["scripts/zones/Talacca_Cove/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Talacca_Cove/TextIDs");
+local ID = require("scripts/zones/Talacca_Cove/IDs");
 require("scripts/globals/keyitems");
 -----------------------------------
 
@@ -14,7 +12,7 @@ end;
 
 function onTrigger(player,npc)
 
-    LuckOfTheDraw = player:getVar("LuckOfTheDraw");
+    LuckOfTheDraw = player:getCharVar("LuckOfTheDraw");
 
     if (LuckOfTheDraw ==3) then
         player:startEvent(2);
@@ -28,9 +26,9 @@ end;
 function onEventFinish(player,csid,option)
 
     if (csid == 2) then
-        player:setVar("LuckOfTheDraw",4);
+        player:setCharVar("LuckOfTheDraw",4);
         player:addKeyItem(dsp.ki.FORGOTTEN_HEXAGUN);
-        player:messageSpecial(KEYITEM_OBTAINED,dsp.ki.FORGOTTEN_HEXAGUN);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.FORGOTTEN_HEXAGUN);
     end
 
 end;

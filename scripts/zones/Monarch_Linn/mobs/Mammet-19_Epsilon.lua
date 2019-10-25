@@ -1,15 +1,12 @@
 -----------------------------------
 -- Area: Monarch Linn
---  MOB: Mammet-19 Epsilon
+--  Mob: Mammet-19 Epsilon
 -----------------------------------
 require("scripts/globals/status");
 -----------------------------------
 
 function onMobSpawn(mob)
     mob:SetMagicCastingEnabled(false);
-end;
-
-function onMobEngaged(mob,target)
 end;
 
 function onMobFight(mob,target)

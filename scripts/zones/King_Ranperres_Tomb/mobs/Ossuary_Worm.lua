@@ -1,13 +1,10 @@
 -----------------------------------
 -- Area: King Ranperres Tomb
---  MOB: Ossuary Worm
+--  Mob: Ossuary Worm
 -----------------------------------
-require("scripts/globals/groundsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
-
-function onMobInitialize(mob)
-end;
 
 function onMobDeath(mob, player, isKiller)
-    checkGoVregime(player,mob,636,1);
-end;
+    dsp.regime.checkRegime(player, mob, 636, 1, dsp.regime.type.GROUNDS)
+end

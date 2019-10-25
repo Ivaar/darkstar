@@ -1,31 +1,13 @@
 -----------------------------------
 -- Area: Temenos N T
--- NPC:  Praetorian_Guard
-
------------------------------------
-package.loaded["scripts/zones/Temenos/TextIDs"] = nil;
+--  Mob: Praetorian Guard CCCXI
 -----------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Temenos/TextIDs");
-
------------------------------------
--- onMobSpawn Action
------------------------------------
-
-function onMobSpawn(mob)
-end;
-
------------------------------------
--- onMobEngaged
 -----------------------------------
 
 function onMobEngaged(mob,target)
 
 end;
-
------------------------------------
--- onMobDeath
------------------------------------
 
 function onMobDeath(mob, player, isKiller)
  if (IsMobDead(16928809)==true and IsMobDead(16928810)==true  and IsMobDead(16928811)==true and IsMobDead(16928812)==true ) then

@@ -1,10 +1,7 @@
 -----------------------------------
 -- Area: Lebros Cavern (Wamoura Farm Raid)
---  MOB: Ranch Wamouracampa
+--  Mob: Ranch Wamouracampa
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobEngaged(mob,target)
 

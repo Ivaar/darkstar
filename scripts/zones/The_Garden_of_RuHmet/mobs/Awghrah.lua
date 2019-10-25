@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: The Garden of Ru'Hmet
---  MOB: Aw'ghrah
+--  Mob: Aw'ghrah
 -----------------------------------
 require("scripts/globals/status");
 -----------------------------------
@@ -39,9 +39,6 @@ function onMobSpawn(mob)
         mob:setMod(dsp.mod.DARKRES, 27);
         mob:setMod(dsp.mod.LIGHTRES, -27);
     end;
-end;
-
-function onMobEngaged(mob,target)
 end;
 
 function onMobRoam(mob)

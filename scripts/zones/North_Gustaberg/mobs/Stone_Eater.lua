@@ -1,10 +1,10 @@
 -----------------------------------
 -- Area: North Gustaberg
---  MOB: Stone Eater
+--  Mob: Stone Eater
 -----------------------------------
-require("scripts/globals/fieldsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkRegime(player,mob,16,1);
-end;
+    dsp.regime.checkRegime(player, mob, 16, 1, dsp.regime.type.FIELDS)
+end

@@ -1,18 +1,9 @@
 -----------------------------------
 -- Area: Apollyon SE
---  NPC: Flying_Spear
+--  Mob: Flying Spear
 -----------------------------------
-package.loaded["scripts/zones/Apollyon/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Apollyon/TextIDs");
 require("scripts/globals/limbus");
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
-
-function onMobEngaged(mob,target)
-end;
 
 function onMobDeath(mob, player, isKiller)
 end;

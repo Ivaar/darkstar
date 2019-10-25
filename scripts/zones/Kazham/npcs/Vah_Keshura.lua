@@ -3,16 +3,12 @@
 --  NPC: Vah Keshura
 -- Standard Info NPC
 -----------------------------------
-package.loaded["scripts/zones/Kazham/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Kazham/TextIDs");
------------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    if (player:getVar("BathedInScent") == 1) then
+    if (player:getCharVar("BathedInScent") == 1) then
         player:startEvent(187); -- scent from Blue Rafflesias
     else
         player:startEvent(124);
@@ -24,4 +20,3 @@ end;
 
 function onEventFinish(player,csid,option)
 end;
-

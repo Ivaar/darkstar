@@ -3,33 +3,30 @@
 --  NPC: Chocobo
 -- Finishes Quest: Chocobo's Wounds
 -----------------------------------
-package.loaded["scripts/zones/Upper_Jeuno/TextIDs"] = nil;
-package.loaded["scripts/globals/settings"] = nil;
------------------------------------
+local ID = require("scripts/zones/Upper_Jeuno/IDs");
 require("scripts/globals/settings");
 require("scripts/globals/titles");
 require("scripts/globals/keyitems");
 require("scripts/globals/shop");
 require("scripts/globals/quests");
-require("scripts/zones/Upper_Jeuno/TextIDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
-    ChocobosWounds = player:getQuestStatus(JEUNO,CHOCOBO_S_WOUNDS);
+    local ChocobosWounds = player:getQuestStatus(JEUNO,dsp.quest.id.jeuno.CHOCOBO_S_WOUNDS);
 
     if (ChocobosWounds == 0) then
         player:startEvent(62);
     elseif (ChocobosWounds == 1) then
-        count = trade:getItemCount();
-        gil = trade:getGil();
+        local count = trade:getItemCount();
+        local gil = trade:getGil();
 
         if (trade:hasItemQty(4545,1)) then
             player:startEvent(76);
         elseif (trade:hasItemQty(534,1) and gil == 0 and count == 1) then
             --Check feeding status.
-            feed = player:getVar("ChocobosWounds_Event");
-            feedMin = player:getVar("ChocobosWounds_Min");
-             feedReady = (feedMin <= os.time())
+            local feed = player:getCharVar("ChocobosWounds_Event");
+            local feedMin = player:getCharVar("ChocobosWounds_Min");
+            local feedReady = (feedMin <= os.time())
 
             if (feed == 1) then
                 player:startEvent(57);
@@ -54,22 +51,22 @@ function onTrade(player,npc,trade)
     else
         if (trade:hasItemQty(4545,1)) then
             player:startEvent(38);
-         end
+        end
     end
 end;
 
 function onTrigger(player,npc)
 
-    ChocobosWounds = player:getQuestStatus(JEUNO,CHOCOBO_S_WOUNDS);
+    local ChocobosWounds = player:getQuestStatus(JEUNO,dsp.quest.id.jeuno.CHOCOBO_S_WOUNDS);
 
     if (ChocobosWounds == QUEST_COMPLETED and player:hasKeyItem(dsp.ki.CHOCOBO_LICENSE) == false) then
         -- this is a quick hack to let people get their license if it was lost
         player:addKeyItem(dsp.ki.CHOCOBO_LICENSE);
-        player:messageSpecial(KEYITEM_OBTAINED, dsp.ki.CHOCOBO_LICENSE);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED, dsp.ki.CHOCOBO_LICENSE);
     elseif (ChocobosWounds == QUEST_AVAILABLE) then
         player:startEvent(62);
     elseif (ChocobosWounds == QUEST_ACCEPTED) then
-        feed = player:getVar("ChocobosWounds_Event");
+        local feed = player:getCharVar("ChocobosWounds_Event");
 
         if (feed == 1) then
             player:startEvent(103);
@@ -97,33 +94,32 @@ end;
 function onEventFinish(player,csid,option)
 
     if (csid == 57) then
-        player:setVar("ChocobosWounds_Event", 2);
-        player:setVar("ChocobosWounds_Min",os.time() + 60);
+        player:setCharVar("ChocobosWounds_Event", 2);
+        player:setCharVar("ChocobosWounds_Min",os.time() + 60);
     elseif (csid == 58) then
-        player:setVar("ChocobosWounds_Event", 3);
-        player:setVar("ChocobosWounds_Min",os.time() + 60);
+        player:setCharVar("ChocobosWounds_Event", 3);
+        player:setCharVar("ChocobosWounds_Min",os.time() + 60);
     elseif (csid == 59) then
-        player:setVar("ChocobosWounds_Event", 4);
-        player:setVar("ChocobosWounds_Min",os.time() + 60);
+        player:setCharVar("ChocobosWounds_Event", 4);
+        player:setCharVar("ChocobosWounds_Min",os.time() + 60);
         player:tradeComplete();
         player:startEvent(99);
     elseif (csid == 60) then
-        player:setVar("ChocobosWounds_Event", 5);
-        player:setVar("ChocobosWounds_Min",os.time() + 60);
+        player:setCharVar("ChocobosWounds_Event", 5);
+        player:setCharVar("ChocobosWounds_Min",os.time() + 60);
         player:tradeComplete();
     elseif (csid == 63) then
-        player:setVar("ChocobosWounds_Event", 6);
-        player:setVar("ChocobosWounds_Min",os.time() + 60);
+        player:setCharVar("ChocobosWounds_Event", 6);
+        player:setCharVar("ChocobosWounds_Min",os.time() + 60);
         player:tradeComplete();
     elseif (csid == 64) then
         player:addKeyItem(dsp.ki.CHOCOBO_LICENSE);
-        player:messageSpecial(KEYITEM_OBTAINED, dsp.ki.CHOCOBO_LICENSE);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED, dsp.ki.CHOCOBO_LICENSE);
         player:addTitle(dsp.title.CHOCOBO_TRAINER);
-        player:setVar("ChocobosWounds_Event", 0);
-        player:setVar("ChocobosWounds_Min", 0);
+        player:setCharVar("ChocobosWounds_Event", 0);
+        player:setCharVar("ChocobosWounds_Min", 0);
         player:addFame(JEUNO,30);
         player:tradeComplete();
-        player:completeQuest(JEUNO,CHOCOBO_S_WOUNDS);
+        player:completeQuest(JEUNO,dsp.quest.id.jeuno.CHOCOBO_S_WOUNDS);
     end
 end;
-

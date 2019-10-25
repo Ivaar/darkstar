@@ -3,10 +3,8 @@
 -- Zone: Grand_Palace_of_HuXzoi (34)
 --
 -----------------------------------
-package.loaded["scripts/zones/Grand_Palace_of_HuXzoi/TextIDs"] = nil;
------------------------------------
 require("scripts/zones/Grand_Palace_of_HuXzoi/globals");
-require("scripts/zones/Grand_Palace_of_HuXzoi/TextIDs");
+local ID = require("scripts/zones/Grand_Palace_of_HuXzoi/IDs");
 require("scripts/globals/conquest");
 require("scripts/globals/status");
 -----------------------------------
@@ -27,10 +25,7 @@ function onInitialize(zone)
 end;
 
 function onConquestUpdate(zone, updatetype)
-    local players = zone:getPlayers();
-    for name, player in pairs(players) do
-        conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
-    end
+    dsp.conq.onConquestUpdate(zone, updatetype)
 end;
 
 function onZoneIn(player,prevZone)
@@ -40,7 +35,7 @@ function onZoneIn(player,prevZone)
         player:setPos(-20,-1.5,-355.482,192);
     end
 
-    player:setVar("Hu-Xzoi-TP",0);
+    player:setCharVar("Hu-Xzoi-TP",0);
 
     return cs;
 end;
@@ -53,7 +48,7 @@ function afterZoneIn(player)
 end;
 
 function onRegionEnter(player,region)
-    if (player:getVar("Hu-Xzoi-TP") == 0 and player:getAnimation() == dsp.anim.NONE) then -- prevent 2cs at same time
+    if (player:getCharVar("Hu-Xzoi-TP") == 0 and player:getAnimation() == dsp.anim.NONE) then -- prevent 2cs at same time
         player:startEvent(149 + region:GetRegionID());
     end
 end;
@@ -63,13 +58,13 @@ end;
 
 function onEventUpdate(player,csid,option)
     if (csid >= 150 and csid <= 159) then
-        player:setVar("Hu-Xzoi-TP",1);
+        player:setCharVar("Hu-Xzoi-TP",1);
     end
 end;
 
 function onEventFinish(player,csid,option)
     if (csid >= 150 and csid <= 159) then
-        player:setVar("Hu-Xzoi-TP",0);
+        player:setCharVar("Hu-Xzoi-TP",0);
     end
 end;
 

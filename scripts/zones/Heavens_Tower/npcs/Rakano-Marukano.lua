@@ -4,8 +4,6 @@
 -- Type: Immigration NPC
 -- !pos 6.174 -1 32.285 242
 -----------------------------------
-package.loaded["scripts/zones/Heavens_Tower/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/conquest");
 -----------------------------------
 
@@ -20,7 +18,7 @@ function onTrigger(player,npc)
 
     if (old_nation == new_nation) then
         player:startEvent(10004,0,0,0,old_nation);
-    elseif (player:getCurrentMission(old_nation) ~= 255 or player:getVar("MissionStatus") ~= 0) then
+    elseif (player:getCurrentMission(old_nation) ~= 255 or player:getCharVar("MissionStatus") ~= 0) then
         player:startEvent(10003,0,0,0,new_nation);
     elseif (old_nation ~= new_nation) then
         local has_gil = 0;

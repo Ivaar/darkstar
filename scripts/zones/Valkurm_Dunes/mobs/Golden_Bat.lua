@@ -1,10 +1,7 @@
 -----------------------------------
 -- Area: Valkurm Dunes (103)
---  NM:  Golden_Bat
+--   NM: Golden Bat
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end;
-
-function onMobDespawn(mob)
 end;

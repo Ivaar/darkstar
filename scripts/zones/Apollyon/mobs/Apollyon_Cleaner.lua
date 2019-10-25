@@ -1,19 +1,9 @@
 -----------------------------------
 -- Area: Apollyon NE
---  NPC: Apollyon Cleaner
-
------------------------------------
-package.loaded["scripts/zones/Apollyon/TextIDs"] = nil;
+--  Mob: Apollyon Cleaner
 -----------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Apollyon/TextIDs");
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
-
-function onMobEngaged(mob,target)
-end;
 
 function onMobDeath(mob, player, isKiller)
 end;

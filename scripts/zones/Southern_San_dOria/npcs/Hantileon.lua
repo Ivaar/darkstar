@@ -2,12 +2,8 @@
 -- Area: Southern San d'Oria
 --   NPC: Hantileon
 -- Type: VCS Chocobo Trainer
--- @zone 230
--- !pos -2.675 -1.1 -105.287
+-- !pos -2.675 -1.1 -105.287 230
 -----------------------------------
-package.loaded["scripts/zones/Southern_San_dOria/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Southern_San_dOria/TextIDs");
 require("scripts/globals/quests");
 -----------------------------------
 
@@ -17,7 +13,7 @@ end;
 function onTrigger(player,npc)
 
 
-    local chocoboOnTheLoose = player:getVar("ChocoboOnTheLoose");
+    local chocoboOnTheLoose = player:getCharVar("ChocoboOnTheLoose");
 
     if (chocoboOnTheLoose == 3 or chocoboOnTheLoose == 4) then
         player:startEvent(821);
@@ -34,8 +30,8 @@ end;
 function onEventFinish(player,csid,option)
 
     if (csid == 821) then
-        player:setVar("ChocoboOnTheLoose", 5);
+        player:setCharVar("ChocoboOnTheLoose", 5);
     elseif (csid == 822) then
-        player:setVar("ChocoboOnTheLoose", 6);
+        player:setCharVar("ChocoboOnTheLoose", 6);
     end
 end;

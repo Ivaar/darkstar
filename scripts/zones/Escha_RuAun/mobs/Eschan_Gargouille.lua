@@ -1,14 +1,12 @@
 -----------------------------------
--- Area: Escha Ruaun
---  MOB: Gargouilles
------------------------------------
-require("scripts/globals/titles");
+-- Area: Escha Ru'Aun
+--  Mob: Eschan Gargouille
 -----------------------------------
 
 function onMobSpawn(mob)
-mob:hideName(true);
-mob:untargetable(true);
-mob:AnimationSub(6);
+    mob:hideName(true);
+    mob:untargetable(true);
+    mob:AnimationSub(6);
 end;
 
 function onMobEngaged(mob, target)

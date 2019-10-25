@@ -1,6 +1,6 @@
 -----------------------------------
--- Area: Grand Palace of Hu'Xzoi
---  MOB: Kf'ghrah BLM
+-- Area: The Garden of Ru'Hmet
+--  Mob: Kf'ghrah BLM
 -----------------------------------
 require("scripts/globals/status");
 require("scripts/globals/magic"); -- no spells are currently set due to lack of info
@@ -24,9 +24,6 @@ function onMobRoam(mob)
         mob:AnimationSub(roamForm);
         mob:setLocalVar("roamTime", os.time());
     end;
-end;
-
-function onMobEngaged(mob,target)
 end;
 
 function onMobFight(mob,target)

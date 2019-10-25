@@ -1,15 +1,7 @@
 -----------------------------------
 -- Area: Apollyon SE
---  NPC: Grave_Digger
-
+--  Mob: Grave Digger
 -----------------------------------
-package.loaded["scripts/zones/Apollyon/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Apollyon/TextIDs");
------------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobEngaged(mob,target)
     GetMobByID(16933021):updateEnmity(target);

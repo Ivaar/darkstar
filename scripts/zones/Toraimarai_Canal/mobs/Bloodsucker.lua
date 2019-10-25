@@ -1,10 +1,10 @@
 -----------------------------------
--- Area: Toraimorai Canal
---  MOB: Bloodsucker
+-- Area: Toraimarai Canal
+--  Mob: Bloodsucker
 -----------------------------------
-require("scripts/globals/groundsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkGoVregime(player,mob,620,2);
-end;
+    dsp.regime.checkRegime(player, mob, 620, 2, dsp.regime.type.GROUNDS)
+end

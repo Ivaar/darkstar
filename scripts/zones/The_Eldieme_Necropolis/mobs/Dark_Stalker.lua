@@ -1,11 +1,11 @@
 -----------------------------------
 -- Area: The Eldieme Necropolis
---  MOB: Dark Stalker
+--  Mob: Dark Stalker
 -----------------------------------
-require("scripts/globals/groundsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkGoVregime(player,mob,672,1);
-    checkGoVregime(player,mob,673,1);
+    dsp.regime.checkRegime(player, mob, 672, 1, dsp.regime.type.GROUNDS)
+    dsp.regime.checkRegime(player, mob, 673, 1, dsp.regime.type.GROUNDS)
 end;

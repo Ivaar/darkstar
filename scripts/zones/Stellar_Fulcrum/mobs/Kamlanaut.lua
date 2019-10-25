@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Stellar Fulcrum
---  MOB: Kam'lanaut
+--  Mob: Kam'lanaut
 -- Zilart Mission 8 BCNM Fight
 -----------------------------------
 require("scripts/globals/titles");
@@ -9,9 +9,6 @@ require("scripts/globals/magic");
 
 local blades = {823, 826, 828, 825, 824, 827};
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobFight(mob, target)
 

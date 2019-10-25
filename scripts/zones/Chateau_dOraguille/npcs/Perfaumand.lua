@@ -4,27 +4,17 @@
 -- Involved in Quest: Lure of the Wildcat (San d'Oria)
 -- !pos -39 -3 69 233
 -----------------------------------
-package.loaded["scripts/zones/Chateau_dOraguille/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/quests");
-require("scripts/zones/Chateau_dOraguille/TextIDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
-
-    if (player:getQuestStatus(SANDORIA,FLYERS_FOR_REGINE) == QUEST_ACCEPTED) then
-        if (trade:hasItemQty(532,1) and trade:getItemCount() == 1) then -- Trade Magicmart_flyer
-            player:messageSpecial(FLYER_REFUSED);
-        end
-    end
-
 end;
 
 function onTrigger(player,npc)
 
-    local WildcatSandy = player:getVar("WildcatSandy");
+    local WildcatSandy = player:getCharVar("WildcatSandy");
 
-    if (player:getQuestStatus(SANDORIA,LURE_OF_THE_WILDCAT_SAN_D_ORIA) == QUEST_ACCEPTED and player:getMaskBit(WildcatSandy,18) == false) then
+    if (player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.LURE_OF_THE_WILDCAT) == QUEST_ACCEPTED and player:getMaskBit(WildcatSandy,18) == false) then
         player:startEvent(560);
     else
         player:startEvent(522);
@@ -38,7 +28,7 @@ end;
 function onEventFinish(player,csid,option)
 
     if (csid == 560) then
-        player:setMaskBit(player:getVar("WildcatSandy"),"WildcatSandy",18,true);
+        player:setMaskBit(player:getCharVar("WildcatSandy"),"WildcatSandy",18,true);
     end
 
 end;

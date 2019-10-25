@@ -1,31 +1,13 @@
 -----------------------------------
 -- Area: Temenos N T
--- NPC:  Telchines_White_Mage
-
------------------------------------
-package.loaded["scripts/zones/Temenos/TextIDs"] = nil;
+--  Mob: Telchines White Mage
 -----------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Temenos/TextIDs");
-
------------------------------------
--- onMobSpawn Action
------------------------------------
-
-function onMobSpawn(mob)
-end;
-
------------------------------------
--- onMobEngaged
 -----------------------------------
 
 function onMobEngaged(mob,target)
 
 end;
-
------------------------------------
--- onMobDeath
------------------------------------
 
 function onMobDeath(mob, player, isKiller)
  if (IsMobDead(16928788)==true and IsMobDead(16928789)==true  and IsMobDead(16928792)==true   and IsMobDead(16928793)==true ) then

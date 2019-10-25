@@ -3,33 +3,20 @@
 --  NPC: HomePoint#1
 -- !pos -80 46 62 160
 -----------------------------------
-package.loaded["scripts/zones/Den_of_Rancor/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/settings");
-require("scripts/zones/Den_of_Rancor/TextIDs");
-require("scripts/globals/homepoint");
+require("scripts/globals/homepoint")
 -----------------------------------
 
-function onTrade(player,npc,trade)
-end;
+local hpEvent = 8700
+local hpIndex = 57
 
-function onTrigger(player,npc)
+function onTrigger(player, npc)
+    dsp.homepoint.onTrigger(player, hpEvent, hpIndex)
+end
 
-    homepointMenu(player, 8700, 57);
-end;
+function onEventUpdate(player, csid, option)
+    dsp.homepoint.onEventUpdate(player, csid, option)
+end
 
-function onEventUpdate(player,csid,option)
-end;
-
-function onEventFinish(player,csid,option)
-
-    if (csid == 8700) then
-
-        if (option == 1) then
-            player:setHomePoint();
-            player:messageSpecial(HOMEPOINT_SET);
-        else
-            hpTeleport(player, option);
-        end
-    end
-end;
+function onEventFinish(player, csid, option)
+    dsp.homepoint.onEventFinish(player, csid, option, hpEvent)
+end

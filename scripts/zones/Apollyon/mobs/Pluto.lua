@@ -1,18 +1,7 @@
 -----------------------------------
 -- Area: Apollyon NW
---  NPC: Pluto
-
+--  Mob: Pluto
 -----------------------------------
-package.loaded["scripts/zones/Apollyon/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Apollyon/TextIDs");
------------------------------------
-
-function onMobSpawn(mob)
-end;
-
-function onMobEngaged(mob,target)
-end;
 
 function onMobDeath(mob, player, isKiller)
 end;

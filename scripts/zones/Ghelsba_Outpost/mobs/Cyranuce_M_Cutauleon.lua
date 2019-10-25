@@ -1,11 +1,8 @@
 -----------------------------------
 -- Area: Ghelsba Outpost
---  MOB: Hut Door
+--  Mob: Cyranuce M Cutauleon
 -- Involved in Quest: The Holy Crest
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobDeath(mob, player, isKiller)
 end;

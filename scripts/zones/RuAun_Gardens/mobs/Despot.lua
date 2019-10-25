@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: RuAun Gardens
---  NM:  Despot
+--   NM: Despot
 -----------------------------------
 
 function onMobWeaponSkill(target, mob, skill)
@@ -26,7 +26,4 @@ function onMobWeaponSkill(target, mob, skill)
 end;
 
 function onMobDeath(mob, player, isKiller)
-end;
-
-function onMobDespawn(mob)
 end;

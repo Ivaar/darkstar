@@ -1,32 +1,14 @@
 -----------------------------------
 -- Area: Temenos N T
--- NPC: Thrym
-
------------------------------------
-package.loaded["scripts/zones/Temenos/TextIDs"] = nil;
+--  Mob: Thrym
 -----------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Temenos/TextIDs");
-
------------------------------------
--- onMobSpawn Action
------------------------------------
-
-function onMobSpawn(mob)
-end;
-
------------------------------------
--- onMobEngaged
 -----------------------------------
 
 function onMobEngaged(mob,target)
     GetMobByID(16928781):updateEnmity(target);
         GetMobByID(16928783):updateEnmity(target);
 end;
-
------------------------------------
--- onMobDeath
------------------------------------
 
 function onMobDeath(mob, player, isKiller)
 

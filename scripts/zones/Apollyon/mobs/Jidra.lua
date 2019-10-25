@@ -1,22 +1,8 @@
 -----------------------------------
 -- Area: Apollyon SW
--- NPC:  Jidra
-
------------------------------------
-package.loaded["scripts/zones/Apollyon/TextIDs"] = nil;
+--  Mob: Jidra
 -----------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Apollyon/TextIDs");
-
------------------------------------
--- onMobSpawn Action
------------------------------------
-
-function onMobSpawn(mob)
-end;
-
------------------------------------
--- onMobEngaged
 -----------------------------------
 
 function onMobEngaged(mob,target)
@@ -25,11 +11,6 @@ function onMobEngaged(mob,target)
       local mobX = mob:getXPos();
     local mobY = mob:getYPos();
     local mobZ = mob:getZPos();
- 
- 
- 
- 
- 
 
  if (mobID ==16932882) then
                         SpawnMob(16932889):updateEnmity(target);
@@ -48,16 +29,8 @@ function onMobEngaged(mob,target)
  end
 end;
 
------------------------------------
--- onMobDeath
------------------------------------
-
 function onMobDeath(mob, player, isKiller)
 end;
-
------------------------------------
--- onMobDespawn
------------------------------------
 
 function onMobDespawn(mob)
  local mobID = mob:getID();
@@ -65,8 +38,8 @@ function onMobDespawn(mob)
       local mobX = mob:getXPos();
     local mobY = mob:getYPos();
     local mobZ = mob:getZPos();
- 
- 
+
+
  if (
 IsMobDead(16932882)==true and
 IsMobDead(16932883)==true and
@@ -75,9 +48,9 @@ IsMobDead(16932885)==true and
 IsMobDead(16932886)==true and
 IsMobDead(16932887)==true and
 IsMobDead(16932888)==true
- 
+
  ) then
- 
+
 -- time
        GetNPCByID(16932864+70):setPos(mobX+3,mobY,mobZ);
     GetNPCByID(16932864+70):setStatus(dsp.status.NORMAL);
@@ -88,8 +61,8 @@ IsMobDead(16932888)==true
       GetNPCByID(16932864+72):setPos(mobX,mobY,mobZ-3);
     GetNPCByID(16932864+72):setStatus(dsp.status.NORMAL);
 
- 
+
  end
- 
+
 
 end;

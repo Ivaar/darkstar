@@ -3,9 +3,7 @@
 --  NPC: Loussaire
 -- !pos -248.677 -8.523 -125.734 87
 -----------------------------------
-package.loaded["scripts/zones/Bastok_Markets_[S]/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Bastok_Markets_[S]/TextIDs");
+local ID = require("scripts/zones/Bastok_Markets_[S]/IDs")
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 require("scripts/globals/titles");
@@ -20,15 +18,15 @@ function onTrigger(player,npc)
 
     local mLvl          = player:getMainLvl();
     local mJob          = player:getMainJob();
-    local downwardHelix = player:getQuestStatus(CRYSTAL_WAR, DOWNWARD_HELIX);
+    local downwardHelix = player:getQuestStatus(CRYSTAL_WAR, dsp.quest.id.crystalWar.DOWNWARD_HELIX);
 
     -- Controls the progress of each step. Everything will start at 1 and end at 4 (complete).
-    local loafersQuestProgress = player:getVar("AF_SCH_BOOTS");
-    local pantsQuestProgress   = player:getVar("AF_SCH_PANTS");
-    local gownQuestProgress    = player:getVar("AF_SCH_BODY");
-    local AFProgress           = player:getVar("AF_Loussaire");
+    local loafersQuestProgress = player:getCharVar("AF_SCH_BOOTS");
+    local pantsQuestProgress   = player:getCharVar("AF_SCH_PANTS");
+    local gownQuestProgress    = player:getCharVar("AF_SCH_BODY");
+    local AFProgress           = player:getCharVar("AF_Loussaire");
 
-    if (player:getVar("AF_SCH_COMPLETE") == 0) then
+    if (player:getCharVar("AF_SCH_COMPLETE") == 0) then
 
         -- They have a piece in progress.
         if ((loafersQuestProgress == 1 or pantsQuestProgress == 1 or gownQuestProgress == 1 or
@@ -145,15 +143,15 @@ function onEventUpdate(player,csid,option)
 
         -- Confirm Loafers
         elseif (option == 1) then
-            player:setVar("AF_SCH_BOOTS", 1);
+            player:setCharVar("AF_SCH_BOOTS", 1);
 
         -- Confirm Pants
         elseif (option == 3) then
-            player:setVar("AF_SCH_PANTS", 1);
+            player:setCharVar("AF_SCH_PANTS", 1);
 
         -- Confirm Gown
         elseif (option == 5) then
-            player:setVar("AF_SCH_BODY", 1);
+            player:setCharVar("AF_SCH_BODY", 1);
 
         elseif (option > 7) then
             player:PrintToPlayer("There was an error in the CS. Inform your Server Admin/GM.");
@@ -164,7 +162,7 @@ end;
 function onEventFinish(player,csid,option)
 
     if (csid == 49 and option == 0) then
-        player:setVar("AF_Loussaire", 1);
+        player:setCharVar("AF_Loussaire", 1);
 
     elseif (csid == 51 or csid == 52 or csid == 54) then
 
@@ -173,7 +171,7 @@ function onEventFinish(player,csid,option)
         local secondKI = player:getLocalVar("secondKI");
 
         if (player:getFreeSlotsCount() == 0) then
-            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED, itemid);
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, itemid);
 
         else
             -- Remove LocalVars
@@ -183,30 +181,30 @@ function onEventFinish(player,csid,option)
 
             -- Flag the path complete
             if (itemid == 15748) then
-                player:setVar("AF_SCH_BOOTS", 4);
+                player:setCharVar("AF_SCH_BOOTS", 4);
             elseif (itemid == 16311) then
-                player:setVar("AF_SCH_PANTS", 4);
+                player:setCharVar("AF_SCH_PANTS", 4);
             else
-                player:setVar("AF_SCH_BODY", 4);
+                player:setCharVar("AF_SCH_BODY", 4);
             end
 
-            local AFProgress = player:getVar("AF_Loussaire");
+            local AFProgress = player:getCharVar("AF_Loussaire");
             if (AFProgress == 3) then
 
                 -- They are done. Clean-up
-                player:setVar("AF_SCH_BOOTS",    0);
-                player:setVar("AF_SCH_PANTS",    0);
-                player:setVar("AF_SCH_BODY",     0);
-                player:setVar("AF_Loussaire",    0);
-                player:setVar("AF_SCH_COMPLETE", 1);
+                player:setCharVar("AF_SCH_BOOTS",    0);
+                player:setCharVar("AF_SCH_PANTS",    0);
+                player:setCharVar("AF_SCH_BODY",     0);
+                player:setCharVar("AF_Loussaire",    0);
+                player:setCharVar("AF_SCH_COMPLETE", 1);
 
             else
-                player:setVar("AF_Loussaire", AFProgress + 1); -- They got an item. Add it!
+                player:setCharVar("AF_Loussaire", AFProgress + 1); -- They got an item. Add it!
             end
 
             player:delKeyItem(firstKI);
             player:delKeyItem(secondKI);
-            player:messageSpecial(ITEM_OBTAINED, itemid);
+            player:messageSpecial(ID.text.ITEM_OBTAINED, itemid);
             player:addItem(itemid);
         end
     end

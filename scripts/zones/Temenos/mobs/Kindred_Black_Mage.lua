@@ -1,15 +1,9 @@
 -----------------------------------
 -- Area: Temenos N T
---  NPC: Telchines_Dragoon
------------------------------------
-package.loaded["scripts/zones/Temenos/TextIDs"] = nil;
+--  Mob: Kindred Black Mage
 -----------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Temenos/TextIDs");
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobEngaged(mob,target)
 

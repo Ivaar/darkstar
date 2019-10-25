@@ -1,10 +1,7 @@
 -----------------------------------
 -- Area: Yuhtunga Jungle
---  MOB: Koropokkur
+--  Mob: Koropokkur
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobDeath(mob, player, isKiller)
 end;

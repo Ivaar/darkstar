@@ -4,84 +4,82 @@
 -- Standard Info NPC
 -- Involved in Quest:
 -----------------------------------
-package.loaded["scripts/zones/Bastok_Markets/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Bastok_Markets/TextIDs");
+local ID = require("scripts/zones/Bastok_Markets/IDs");
 require("scripts/globals/quests");
 -----------------------------------
 
-    --local variables for item IDs to make things clearer;
-    local imperialSilk = 2340;
-    local wolfFelt = 2010;
-    local silverBrocade = 1991;
+--local variables for item IDs to make things clearer;
+local imperialSilk = 2340;
+local wolfFelt = 2010;
+local silverBrocade = 1991;
 
-    local karakulCloth = 2288;
-    local rainbowCloth = 830;
-    local rainbowVelvet = 1996;
+local karakulCloth = 2288;
+local rainbowCloth = 830;
+local rainbowVelvet = 1996;
 
-    local wamouraCloth = 2289;
-    local moblinWeave = 1636;
-    local goldBrocade = 1999;
+local wamouraCloth = 2289;
+local moblinWeave = 1636;
+local goldBrocade = 1999;
 
 function onTrade(player,npc,trade)
 
-    if (player:getVar("dancerTailorCS") == 4) then
-        local playersAFChoice = player:getVar("dancerAFChoice");
+    if (player:getCharVar("dancerTailorCS") == 4) then
+        local playersAFChoice = player:getCharVar("dancerAFChoice");
 
-            if (playersAFChoice == 1 and
-                trade:hasItemQty(imperialSilk, 1) == true and
-                trade:hasItemQty(wolfFelt, 1) == true and
-                trade:hasItemQty(silverBrocade, 1) == true and
-                trade:getItemCount() == 3 and
-                trade:getGil() == 0) then
+        if (playersAFChoice == 1 and
+            trade:hasItemQty(imperialSilk, 1) == true and
+            trade:hasItemQty(wolfFelt, 1) == true and
+            trade:hasItemQty(silverBrocade, 1) == true and
+            trade:getItemCount() == 3 and
+            trade:getGil() == 0) then
 
-                rewardThePlayer(player);
+            rewardThePlayer(player);
 
-             elseif (playersAFChoice == 2 and
-                trade:hasItemQty(karakulCloth, 1) == true and
-                trade:hasItemQty(rainbowCloth, 1) == true and
-                trade:hasItemQty(rainbowVelvet, 1) == true and
-                trade:getItemCount() == 3 and
-                trade:getGil() == 0) then
+        elseif (playersAFChoice == 2 and
+            trade:hasItemQty(karakulCloth, 1) == true and
+            trade:hasItemQty(rainbowCloth, 1) == true and
+            trade:hasItemQty(rainbowVelvet, 1) == true and
+            trade:getItemCount() == 3 and
+            trade:getGil() == 0) then
 
-                rewardThePlayer(player);
+            rewardThePlayer(player);
 
-             elseif (playersAFChoice == 3 and
-                trade:hasItemQty(wamouraCloth, 1) == true and
-                trade:hasItemQty(moblinWeave, 1) == true and
-                trade:hasItemQty(goldBrocade, 1) == true and
-                trade:getItemCount() == 3 and
-                trade:getGil() == 0) then
+        elseif (playersAFChoice == 3 and
+            trade:hasItemQty(wamouraCloth, 1) == true and
+            trade:hasItemQty(moblinWeave, 1) == true and
+            trade:hasItemQty(goldBrocade, 1) == true and
+            trade:getItemCount() == 3 and
+            trade:getGil() == 0) then
 
-                rewardThePlayer(player);
-            end;
-     end;
+            rewardThePlayer(player);
+        end;
+    end;
 end;
 
 function rewardThePlayer(player)
-    local playersAFChoice = player:getVar("dancerAFChoice");
+    local playersAFChoice = player:getCharVar("dancerAFChoice");
     local currentVanaDay = VanadielDayOfTheYear();
-    player:setVar("dancerTailorWorkDay", currentVanaDay);
-    player:setVar("dancerTailorCS", 5);
+    player:setCharVar("dancerTailorWorkDay", currentVanaDay);
+    player:setCharVar("dancerTailorCS", 5);
     player:tradeComplete();
     player:startEvent(495, playersAFChoice-1);
 end;
 
 -- local variables for item IDs to make things clearer
-    local dancersTiara = 16139;
-    local dancersBangles = 15003;
-    local dancersToeshoes = 15747;
+local dancersTiara = 16139;
+local dancersBangles = 15003;
+local dancersToeshoes = 15747;
 
 function onTrigger(player,npc)
 
-    local playersAFChoice = player:getVar("dancerAFChoice");
-    local tailorStartedWorkDay = player:getVar("dancerTailorWorkDay");
+    local playersAFChoice = player:getCharVar("dancerAFChoice");
+    local tailorStartedWorkDay = player:getCharVar("dancerTailorWorkDay");
 
-    if (player:getVar("dancerTailorCS") == 2) then
+    if (player:getCharVar("dancerTailorCS") == 2) then
         player:startEvent(492);
-    elseif (player:getVar("dancerTailorCS") == 3) then
+    elseif (player:getCharVar("dancerTailorCS") == 3) then
 
-        local completedPieces = player:getVar("dancerCompletedAF");
+        local completedPieces = player:getCharVar("dancerCompletedAF");
 
         local playerCompletedTiara = 0;
         if (bit.band(completedPieces,1) > 0) then
@@ -100,17 +98,17 @@ function onTrigger(player,npc)
 
         local completedPieces = playerCompletedShoes + playerCompletedBangles + playerCompletedTiara;
         if (completedPieces == 3) then
-            player:setVar("dancerTailorCS", 6);
+            player:setCharVar("dancerTailorCS", 6);
             player:startEvent(498);
-         else
+        else
             player:startEvent(493, playerCompletedTiara, playerCompletedBangles, playerCompletedShoes);
         end;
 
-    elseif (player:getVar("dancerTailorCS") == 4) then
+    elseif (player:getCharVar("dancerTailorCS") == 4) then
 
         player:startEvent(494, playersAFChoice -1); -- event params indexed from 0
 
-    elseif (player:getVar("dancerTailorCS") == 5 )then
+    elseif (player:getCharVar("dancerTailorCS") == 5 )then
 
         local currentVanaDay = VanadielDayOfTheYear();
 
@@ -132,7 +130,7 @@ function onTrigger(player,npc)
         else
             player:startEvent(496); -- not enough time has passed
         end;
-    elseif (player:getVar("dancerTailorCS") == 6) then
+    elseif (player:getCharVar("dancerTailorCS") == 6) then
         player:startEvent(498);
     else
         player:startEvent(499);
@@ -144,15 +142,15 @@ end;
 
 function onEventFinish(player,csid,option)
 
-    local completedPieces = player:getVar("dancerCompletedAF");
+    local completedPieces = player:getCharVar("dancerCompletedAF");
 
     if (csid == 492) then
 
         if (option > 0) then -- option 1 - tiara 2 - bangles 3 - shoes
-            player:setVar("dancerAFChoice", option);
-            player:setVar("dancerTailorCS", 4);
+            player:setCharVar("dancerAFChoice", option);
+            player:setCharVar("dancerTailorCS", 4);
         else
-            player:setVar("dancerTailorCS", 3);
+            player:setCharVar("dancerTailorCS", 3);
         end;
 
     elseif (csid == 493) then
@@ -165,15 +163,15 @@ function onEventFinish(player,csid,option)
                 player:startEvent(498);
 
             else
-                player:setVar("dancerAFChoice", option);
-                player:setVar("dancerTailorCS", 4);
+                player:setCharVar("dancerAFChoice", option);
+                player:setCharVar("dancerTailorCS", 4);
             end;
         end;
 
     elseif (csid == 497) then -- reward player the appropriate AF
 
         local dancerAFID = 1; -- variable used to convert player's choice into an Item ID.
-        local playersAFChoice = player:getVar("dancerAFChoice");
+        local playersAFChoice = player:getCharVar("dancerAFChoice");
 
         if (playersAFChoice == 1) then
             dancerAFID = dancersTiara;
@@ -184,21 +182,21 @@ function onEventFinish(player,csid,option)
         end;
 
         if (player:getFreeSlotsCount() == 0) then --check to see if the player has enough inventory space before rewarding them.
-            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED, dancerAFID);
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED, dancerAFID);
         else
             local playerGender = player:getGender();
             player:addItem(dancerAFID - playerGender);
-            player:messageSpecial(ITEM_OBTAINED, dancerAFID);
+            player:messageSpecial(ID.text.ITEM_OBTAINED, dancerAFID);
 
             local allPiecesCompleted = 7;
             if (bit.band(completedPieces, allPiecesCompleted) == allPiecesCompleted) then
-                player:setVar("dancerTailorCS",6); -- final cs flag
+                player:setCharVar("dancerTailorCS",6); -- final cs flag
             else
                 local playersReward = bit.lshift(1, playersAFChoice - 1)
                 completedPieces = bit.bor(completedPieces, playersReward);
-                player:setVar("dancerCompletedAF", completedPieces);
-                player:setVar("dancerTailorCS", 3);
-             end;
+                player:setCharVar("dancerCompletedAF", completedPieces);
+                player:setCharVar("dancerTailorCS", 3);
+            end;
         end;
     else
     -- do nothing

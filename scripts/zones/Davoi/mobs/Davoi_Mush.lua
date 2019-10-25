@@ -1,14 +1,14 @@
 -----------------------------------
 -- Area: Davoi
---  MOB: Davoi Mush
+--  Mob: Davoi Mush
 -- Note: PH for Blubbery Bulge
 -----------------------------------
-require("scripts/zones/Davoi/MobIDs");
+local ID = require("scripts/zones/Davoi/IDs");
 require("scripts/globals/mobs");
 
 function onMobDeath(mob, player, isKiller)
 end;
 
 function onMobDespawn(mob)
-    phOnDespawn(mob,BLUBBERY_BULGE_PH,20,3600); -- 1 hour
+    dsp.mob.phOnDespawn(mob,ID.mob.BLUBBERY_BULGE_PH,20,3600); -- 1 hour
 end;

@@ -3,35 +3,20 @@
 --  NPC: HomePoint#2
 -- !pos 118 1 -58 234
 -----------------------------------
-package.loaded["scripts/zones/Bastok_Mines/TextIDs"] = nil;
-
-package.loaded["scripts/globals/homepoint"] = nil;
------------------------------------
-require("scripts/globals/settings");
-require("scripts/zones/Bastok_Mines/TextIDs");
-require("scripts/globals/homepoint");
+require("scripts/globals/homepoint")
 -----------------------------------
 
-function onTrade(player,npc,trade)
-end;
+local hpEvent = 8701
+local hpIndex = 10
 
-function onTrigger(player,npc)
+function onTrigger(player, npc)
+    dsp.homepoint.onTrigger(player, hpEvent, hpIndex)
+end
 
-    homepointMenu(player, 8701, 10);
-end;
+function onEventUpdate(player, csid, option)
+    dsp.homepoint.onEventUpdate(player, csid, option)
+end
 
-function onEventUpdate(player,csid,option)
-end;
-
-function onEventFinish(player,csid,option)
-
-    if (csid == 8701) then
-
-        if (option == 1) then
-            player:setHomePoint();
-            player:messageSpecial(HOMEPOINT_SET);
-        else
-            hpTeleport(player, option);
-        end
-    end
-end;
+function onEventFinish(player, csid, option)
+    dsp.homepoint.onEventFinish(player, csid, option, hpEvent)
+end

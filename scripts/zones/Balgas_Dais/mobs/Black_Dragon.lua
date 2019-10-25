@@ -1,17 +1,14 @@
 -----------------------------------
 -- Area: Balga's Dais
---  MOB: Black Dragon
+--  Mob: Black Dragon
 -- Mission 2-3 BCNM Fight
 -----------------------------------
-
-require("scripts/globals/titles");
-require("scripts/globals/status");
+require("scripts/globals/status")
+require("scripts/globals/titles")
+-----------------------------------
 
 function onMobInitialize(mob)
     mob:setMobMod(dsp.mobMod.DRAW_IN, 1);
-end;
-
-function onMobSpawn(mob)
 end;
 
 function onMobDeath(mob, player, isKiller)

@@ -1,10 +1,7 @@
 -----------------------------------
 -- Area: Crawlers' Nest (197)
---  MOB: Demonic_Tiphia
+--  Mob: Demonic Tiphia
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end;
-
-function onMobDespawn(mob)
 end;

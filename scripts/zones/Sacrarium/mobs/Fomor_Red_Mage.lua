@@ -1,11 +1,8 @@
 -----------------------------------
 -- Area: Sacrarium
---  MOB: Fomor Red mage
+--  Mob: Fomor Red Mage
 -----------------------------------
 mixins = {require("scripts/mixins/fomor_hate")}
-
-function onMobSpawn(mob)
-end;
 
 function onMobDeath(mob, player, isKiller)
 end;

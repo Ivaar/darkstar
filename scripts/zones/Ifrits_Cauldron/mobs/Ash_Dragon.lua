@@ -1,12 +1,9 @@
 -----------------------------------
 -- Area: Ifrit's Cauldron
---  MOB: Ash Dragon
+--  Mob: Ash Dragon
 -----------------------------------
 require("scripts/globals/titles");
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobDeath(mob, player, isKiller)
     player:addTitle(dsp.title.DRAGON_ASHER);

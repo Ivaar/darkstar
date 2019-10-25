@@ -1,12 +1,9 @@
 -----------------------------------
 -- Area: Fei'Yin
---  MOB: Mind Hoarder
+--  Mob: Mind Hoarder
 -----------------------------------
 require("scripts/globals/titles");
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobDeath(mob, player, isKiller)
 

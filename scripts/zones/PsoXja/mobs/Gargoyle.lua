@@ -1,15 +1,15 @@
 -----------------------------------
--- Area: Pso'xja
---  MOB: Gargoyle
+-- Area: Pso'Xja
+--  Mob: Gargoyle
 -----------------------------------
-require("scripts/zones/PsoXja/MobIDs");
+local ID = require("scripts/zones/PsoXja/IDs");
 
 function onMobDeath(mob, player, isKiller)
     if (isKiller) then
         local mobId = mob:getID();
-        local offset = mobId - GARGOYLE_OFFSET;
+        local offset = mobId - ID.mob.GARGOYLE_OFFSET;
         if (offset < 16) then
-            GetNPCByID(STONE_DOOR_OFFSET + offset):openDoor(30);
+            GetNPCByID(ID.npc.STONE_DOOR_OFFSET + offset):openDoor(30);
         end
     end
 end;

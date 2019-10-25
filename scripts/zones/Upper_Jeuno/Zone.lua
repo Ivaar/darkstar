@@ -3,13 +3,14 @@
 -- Zone: Upper_Jeuno (244)
 --
 -----------------------------------
-package.loaded["scripts/zones/Upper_Jeuno/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/missions");
-require("scripts/zones/Upper_Jeuno/TextIDs");
+local ID = require("scripts/zones/Upper_Jeuno/IDs")
+require("scripts/globals/conquest")
+require("scripts/globals/missions")
+require("scripts/globals/chocobo")
 -----------------------------------
 
 function onInitialize(zone)
+    dsp.chocobo.initZone(zone)
 end;
 
 function onZoneIn(player,prevZone)
@@ -24,26 +25,22 @@ function onZoneIn(player,prevZone)
     end
 
     -- COP mission 1-1
-    if (player:getCurrentMission(COP) == THE_RITES_OF_LIFE and player:getVar("PromathiaStatus") == 0) then
+    if (player:getCurrentMission(COP) == dsp.mission.id.cop.THE_RITES_OF_LIFE and player:getCharVar("PromathiaStatus") == 0) then
         cs = 2;
     -- MOG HOUSE EXIT
     elseif (player:getXPos() == 0 and player:getYPos() == 0 and player:getZPos() == 0) then
         player:setPos(46.2,-5,-78,172);
-        if (player:getMainJob() ~= player:getVar("PlayerMainJob")) then
+        if (player:getMainJob() ~= player:getCharVar("PlayerMainJob")) then
             cs = 30004;
         end
-        player:setVar("PlayerMainJob",0);
+        player:setCharVar("PlayerMainJob",0);
     end
 
     return cs;
 end;
 
 function onConquestUpdate(zone, updatetype)
-    local players = zone:getPlayers();
-
-    for name, player in pairs(players) do
-        conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
-    end
+    dsp.conq.onConquestUpdate(zone, updatetype)
 end;
 
 function onRegionEnter(player,region)
@@ -55,8 +52,8 @@ end;
 function onEventFinish(player,csid,option)
     if (csid == 30004 and option == 0) then
         player:setHomePoint();
-        player:messageSpecial(HOMEPOINT_SET);
+        player:messageSpecial(ID.text.HOMEPOINT_SET);
     elseif (csid == 2) then
-        player:setVar("PromathiaStatus",1);
+        player:setCharVar("PromathiaStatus",1);
     end
 end;

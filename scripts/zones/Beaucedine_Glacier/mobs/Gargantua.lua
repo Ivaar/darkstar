@@ -1,10 +1,7 @@
 -----------------------------------
 -- Area: Beaucedine Glacier (111)
---  NM:  Gargantua
+--   NM: Gargantua
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end;
-
-function onMobDespawn(mob)
 end;

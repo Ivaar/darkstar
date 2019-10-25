@@ -1,15 +1,15 @@
 -----------------------------------
 -- Area: Yuhtunga Jungle
---  MOB: Voluptuous Vilma
+--  Mob: Voluptuous Vilma
 -----------------------------------
-require("scripts/zones/Yuhtunga_Jungle/MobIDs");
+local ID = require("scripts/zones/Yuhtunga_Jungle/IDs")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end;
+end
 
 function onMobDespawn(mob)
-    DisallowRespawn(VOLUPTUOUS_VILMA, true);
-    DisallowRespawn(ROSE_GARDEN_PH, false);
-    GetMobByID(ROSE_GARDEN_PH):setRespawnTime(GetMobRespawnTime(ROSE_GARDEN_PH));
-end;
+    DisallowRespawn(ID.mob.VOLUPTUOUS_VILMA, true)
+    DisallowRespawn(ID.mob.ROSE_GARDEN_PH, false)
+    GetMobByID(ID.mob.ROSE_GARDEN_PH):setRespawnTime(GetMobRespawnTime(ID.mob.ROSE_GARDEN_PH))
+end

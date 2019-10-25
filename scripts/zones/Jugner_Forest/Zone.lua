@@ -3,56 +3,27 @@
 -- Zone: Jugner_Forest (104)
 --
 -----------------------------------
-package.loaded[ "scripts/zones/Jugner_Forest/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Jugner_Forest/TextIDs");
-require("scripts/zones/Jugner_Forest/MobIDs");
+local ID = require("scripts/zones/Jugner_Forest/IDs");
 require("scripts/globals/icanheararainbow");
 require("scripts/globals/chocobo_digging");
 require("scripts/globals/conquest");
+require("scripts/globals/helm")
 require("scripts/globals/zone");
 -----------------------------------
 
-local itemMap =
-{
-    -- itemid, abundance, requirement
-                    { 4504, 152, DIGREQ_NONE },
-                    { 688, 182, DIGREQ_NONE },
-                    { 697, 83, DIGREQ_NONE },
-                    { 4386, 3, DIGREQ_NONE },
-                    { 17396, 129, DIGREQ_NONE },
-                    { 691, 144, DIGREQ_NONE },
-                    { 918, 8, DIGREQ_NONE },
-                    { 699, 76, DIGREQ_NONE },
-                    { 4447, 38, DIGREQ_NONE },
-                    { 695, 45, DIGREQ_NONE },
-                    { 4096, 100, DIGREQ_NONE },  -- all crystals
-                    { 1255, 10, DIGREQ_NONE }, -- all ores
-                    { 690, 15, DIGREQ_BORE },
-                    { 1446, 8, DIGREQ_BORE },
-                    { 702, 23, DIGREQ_BORE },
-                    { 701, 8, DIGREQ_BORE },
-                    { 696, 30, DIGREQ_BORE },
-                    { 4570, 10, DIGREQ_MODIFIER },
-                    { 4487, 11, DIGREQ_MODIFIER },
-                    { 4409, 12, DIGREQ_MODIFIER },
-                    { 1188, 10, DIGREQ_MODIFIER },
-                    { 4532, 12, DIGREQ_MODIFIER },
-};
-
-local messageArray = { DIG_THROW_AWAY, FIND_NOTHING, ITEM_OBTAINED };
-
 function onChocoboDig(player, precheck)
-    return chocoboDig(player, itemMap, precheck, messageArray);
+    return dsp.chocoboDig.start(player, precheck)
 end;
 
 function onInitialize(zone)
     zone:registerRegion(1, -484, 10, 292, 0, 0, 0); -- Sets Mark for "Under Oath" Quest cutscene.
 
-    UpdateNMSpawnPoint(FRAELISSA);
-    GetMobByID(FRAELISSA):setRespawnTime(math.random(900, 10800));
+    UpdateNMSpawnPoint(ID.mob.FRAELISSA);
+    GetMobByID(ID.mob.FRAELISSA):setRespawnTime(math.random(900, 10800));
 
-    SetRegionalConquestOverseers(zone:getRegionID());
+    dsp.conq.setRegionalConquestOverseers(zone:getRegionID());
+
+    dsp.helm.initZone(zone, dsp.helm.type.LOGGING)
 end;
 
 function onZoneIn( player, prevZone)
@@ -70,16 +41,12 @@ function onZoneIn( player, prevZone)
 end;
 
 function onConquestUpdate(zone, updatetype)
-    local players = zone:getPlayers();
-
-    for name, player in pairs(players) do
-        conquestUpdate(zone, player, updatetype, CONQUEST_BASE);
-    end
+    dsp.conq.onConquestUpdate(zone, updatetype)
 end;
 
 function onRegionEnter( player, region)
     if (region:GetRegionID() == 1) then
-        if (player:getVar("UnderOathCS") == 7) then -- Quest: Under Oath - PLD AF3
+        if (player:getCharVar("UnderOathCS") == 7) then -- Quest: Under Oath - PLD AF3
             player:startEvent(14);
         end
     end
@@ -95,6 +62,6 @@ function onEventFinish( player, csid, option)
     if (csid == 15) then
         lightCutsceneFinish(player); -- Quest: I Can Hear A Rainbow
     elseif (csid == 14) then
-        player:setVar("UnderOathCS",8); -- Quest: Under Oath - PLD AF3
+        player:setCharVar("UnderOathCS",8); -- Quest: Under Oath - PLD AF3
     end
 end;

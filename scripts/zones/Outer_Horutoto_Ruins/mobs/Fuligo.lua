@@ -1,11 +1,11 @@
 -----------------------------------
--- Area: Outer Horutoto
---  MOB: Fuligo
+-- Area: Outer Horutoto Ruins
+--  Mob: Fuligo
 -----------------------------------
-require("scripts/globals/groundsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkGoVregime(player,mob,669,2);
-    checkGoVregime(player,mob,670,2);
-end;
+    dsp.regime.checkRegime(player, mob, 669, 2, dsp.regime.type.GROUNDS)
+    dsp.regime.checkRegime(player, mob, 670, 2, dsp.regime.type.GROUNDS)
+end

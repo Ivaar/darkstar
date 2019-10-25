@@ -1,10 +1,7 @@
 -----------------------------------
 -- Area: East Ronfaure
---  MOB: Rambukk
+--  Mob: Rambukk
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobDeath(mob, player, isKiller)
 end;

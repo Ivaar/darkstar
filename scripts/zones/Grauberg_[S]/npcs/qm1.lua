@@ -3,7 +3,7 @@
 --  NPC: ???
 --  Quest - DNC AF1
 -----------------------------------
-require("scripts/zones/Grauberg_[S]/MobIDs");
+local ID = require("scripts/zones/Grauberg_[S]/IDs");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
 -----------------------------------
@@ -12,13 +12,13 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    local tuw = player:getQuestStatus(JEUNO,THE_UNFINISHED_WALTZ);
-    local tuwStatus = player:getVar("QuestStatus_DNC_AF1");
+    local tuw = player:getQuestStatus(JEUNO,dsp.quest.id.jeuno.THE_UNFINISHED_WALTZ);
+    local tuwStatus = player:getCharVar("QuestStatus_DNC_AF1");
     
     if (tuw == QUEST_ACCEPTED and tuwStatus == 2) then
         player:startEvent(12);
-    elseif (tuw == QUEST_ACCEPTED and tuwStatus == 3 and not GetMobByID(MIGRATORY_HIPPOGRYPH):isSpawned()) then
-        SpawnMob(MIGRATORY_HIPPOGRYPH):updateEnmity(player);
+    elseif (tuw == QUEST_ACCEPTED and tuwStatus == 3 and not GetMobByID(ID.mob.MIGRATORY_HIPPOGRYPH):isSpawned()) then
+        SpawnMob(ID.mob.MIGRATORY_HIPPOGRYPH):updateEnmity(player);
     elseif (tuw == QUEST_ACCEPTED and tuwStatus == 4) then
         player:startEvent(13);
     end
@@ -29,10 +29,10 @@ end;
 
 function onEventFinish(player,csid,option)
     if (csid==12) then
-        player:setVar("QuestStatus_DNC_AF1", 3);
+        player:setCharVar("QuestStatus_DNC_AF1", 3);
     elseif (csid==13) then
         player:addKeyItem(dsp.ki.THE_ESSENCE_OF_DANCE);
-        player:messageSpecial(KEYITEM_OBTAINED,dsp.ki.THE_ESSENCE_OF_DANCE);
-        player:setVar("QuestStatus_DNC_AF1", 5);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.THE_ESSENCE_OF_DANCE);
+        player:setCharVar("QuestStatus_DNC_AF1", 5);
     end
 end;

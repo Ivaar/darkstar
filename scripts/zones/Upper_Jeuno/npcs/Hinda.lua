@@ -3,9 +3,6 @@
 --  NPC: Hinda
 -- Standard Info NPC
 -----------------------------------
-package.loaded["scripts/zones/Upper_Jeuno/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Upper_Jeuno/TextIDs");
 require("scripts/globals/quests");
 -----------------------------------
 
@@ -13,8 +10,8 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    local WildcatJeuno = player:getVar("WildcatJeuno");
-    if (player:getQuestStatus(JEUNO,LURE_OF_THE_WILDCAT_JEUNO) == QUEST_ACCEPTED and player:getMaskBit(WildcatJeuno,9) == false) then
+    local WildcatJeuno = player:getCharVar("WildcatJeuno");
+    if (player:getQuestStatus(JEUNO,dsp.quest.id.jeuno.LURE_OF_THE_WILDCAT) == QUEST_ACCEPTED and player:getMaskBit(WildcatJeuno,9) == false) then
         player:startEvent(10087);
     else
         player:startEvent(161);
@@ -26,6 +23,6 @@ end;
 
 function onEventFinish(player,csid,option)
     if (csid == 10087) then
-        player:setMaskBit(player:getVar("WildcatJeuno"),"WildcatJeuno",9,true);
+        player:setMaskBit(player:getCharVar("WildcatJeuno"),"WildcatJeuno",9,true);
     end
 end;

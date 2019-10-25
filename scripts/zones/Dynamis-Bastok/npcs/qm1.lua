@@ -1,31 +1,15 @@
 -----------------------------------
--- Area: Dynamis Bastok
---  NPC: qm1 (???)
--- Notes: Spawns when Megaboss is defeated
+-- Area: Dynamis-Bastok
+--  NPC: ??? (qm1)
+-- Note: Spawns Zo'Pha Forgesoul
 -----------------------------------
-package.loaded["scripts/zones/Dynamis-Bastok/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/keyitems");
-require("scripts/zones/Dynamis-Bastok/TextIDs");
+require("scripts/globals/dynamis")
 -----------------------------------
 
-function onTrade(player,npc,trade)
-end;
+function onTrade(player, npc, trade)
+    dynamis.qmOnTrade(player, npc, trade)
+end
 
-function onTrigger(player,npc)
-
-    if (player:hasKeyItem(dsp.ki.HYDRA_CORPS_EYEGLASS) == false) then
-        player:setVar("DynaBastok_Win",1);
-        player:addKeyItem(dsp.ki.HYDRA_CORPS_EYEGLASS);
-        player:messageSpecial(KEYITEM_OBTAINED,dsp.ki.HYDRA_CORPS_EYEGLASS);
-    else
-        player:messageSpecial(NOTHING_OUT_OF_ORDINARY);
-    end
-
-end;
-
-function onEventUpdate(player,csid,option)
-end;
-
-function onEventFinish(player,csid,option)
-end;
+function onTrigger(player, npc)
+    dynamis.qmOnTrigger(player, npc)
+end

@@ -1,10 +1,10 @@
 -----------------------------------
 -- Area: Konschtat Highlands
---  MOB: Goblin Butcher
+--  Mob: Goblin Butcher
 -----------------------------------
-require("scripts/globals/fieldsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkRegime(player,mob,84,3);
-end;
+    dsp.regime.checkRegime(player, mob, 84, 3, dsp.regime.type.FIELDS)
+end

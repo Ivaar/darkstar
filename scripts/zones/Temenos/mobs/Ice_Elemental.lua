@@ -1,31 +1,13 @@
 -----------------------------------
 -- Area: Temenos E T
--- NPC: Ice_Elemental
-
------------------------------------
-package.loaded["scripts/zones/Temenos/TextIDs"] = nil;
+--  Mob: Ice Elemental
 -----------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Temenos/TextIDs");
-
------------------------------------
--- onMobSpawn Action
------------------------------------
-
-function onMobSpawn(mob)
-end;
-
------------------------------------
--- onMobEngaged
 -----------------------------------
 
 function onMobEngaged(mob,target)
 
 end;
-
------------------------------------
--- onMobDeath
------------------------------------
 
 function onMobDeath(mob, player, isKiller)
    local mobID = mob:getID();
@@ -57,6 +39,6 @@ function onMobDeath(mob, player, isKiller)
            end
         end    ,
 
-        
+
      }
 end;

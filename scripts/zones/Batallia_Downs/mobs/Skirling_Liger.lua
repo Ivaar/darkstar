@@ -1,12 +1,9 @@
 -----------------------------------
 -- Area: Batallia Downs (105)
---  MOB: Skirling Liger
+--  Mob: Skirling Liger
 -----------------------------------
 require("scripts/globals/status");
 -----------------------------------
-
-function onMobInitialize(mob)
-end;
 
 function onMobEngaged(mob,target)
     mob:setMod(dsp.mod.REGAIN, 50);

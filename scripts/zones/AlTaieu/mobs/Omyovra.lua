@@ -1,13 +1,10 @@
 -----------------------------------
 -- Area: Al'Taieu
---  MOB: Ru_aern
+--  Mob: Om'yovra
 -----------------------------------
 require("scripts/globals/missions");
 require("scripts/globals/status");
 -----------------------------------
-
-function onMobInitialize(mob)
-end;
 
 function onMobSpawn(mob)
     mob:hideName(true);

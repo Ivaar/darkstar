@@ -1,23 +1,16 @@
 -----------------------------------
 -- Area: Temenos W T
---  NPC: Enhanced_Tiger
-
------------------------------------
-package.loaded["scripts/zones/Temenos/TextIDs"] = nil;
+--  Mob: Enhanced Tiger
 -----------------------------------
 require("scripts/globals/limbus");
-require("scripts/zones/Temenos/TextIDs");
 -----------------------------------
-
-function onMobSpawn(mob)
-end;
 
 function onMobEngaged(mob,target)
 
 end;
 
 function onMobDeath(mob, player, isKiller)
-local cofferID=Randomcoffer(1,GetInstanceRegion(1298));
+local cofferID=Randomcoffer(1,Temenos_Western_Tower);
     local mobX = mob:getXPos();
     local mobY = mob:getYPos();
     local mobZ = mob:getZPos();

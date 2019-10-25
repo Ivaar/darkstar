@@ -1,37 +1,29 @@
 -----------------------------------
 -- Area: West Ronfaure
 --  NPC: qm1 (???)
---  Involved in Quest: The Dismayed Customer
+-- Involved in Quest: The Dismayed Customer
 -- !pos -453 -20 -230 100
 -----------------------------------
-package.loaded["scripts/zones/West_Ronfaure/TextIDs"] = nil;
------------------------------------
-require("scripts/globals/settings");
-require("scripts/globals/quests");
-require("scripts/globals/keyitems");
-require("scripts/zones/West_Ronfaure/TextIDs");
+local ID = require("scripts/zones/West_Ronfaure/IDs")
+require("scripts/globals/keyitems")
+require("scripts/globals/quests")
 -----------------------------------
 
-function onTrade(player,npc,trade)
+function onTrade(player, npc, trade)
+end
 
-end;
-
-function onTrigger(player,npc)
-
-    if (player:getQuestStatus(SANDORIA, THE_DISMAYED_CUSTOMER) == QUEST_ACCEPTED and player:getVar("theDismayedCustomer") == 1) then
-        player:addKeyItem(dsp.ki.GULEMONTS_DOCUMENT);
-        player:messageSpecial(KEYITEM_OBTAINED, dsp.ki.GULEMONTS_DOCUMENT);
-        player:setVar("theDismayedCustomer", 0);
+function onTrigger(player, npc)
+    if player:getQuestStatus(SANDORIA, dsp.quest.id.sandoria.THE_DISMAYED_CUSTOMER) == QUEST_ACCEPTED and player:getCharVar("theDismayedCustomer") == 1 then
+        player:addKeyItem(dsp.ki.GULEMONTS_DOCUMENT)
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED, dsp.ki.GULEMONTS_DOCUMENT)
+        player:setCharVar("theDismayedCustomer", 0)
     else
-        player:messageSpecial(DISMAYED_CUSTOMER);
-    end;
+        player:messageSpecial(ID.text.DISMAYED_CUSTOMER)
+    end
+end
 
-end;
+function onEventUpdate(player, csid, option)
+end
 
-function onEventUpdate(player,csid,option)
-end;
-
-function onEventFinish(player,csid,option)
-end;
-
-
+function onEventFinish(player, csid, option)
+end

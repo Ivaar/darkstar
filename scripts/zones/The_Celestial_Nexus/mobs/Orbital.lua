@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: The Celestial Nexus
---  NPC: Orbital
+--  Mob: Orbital
 -- Zilart Mission 16 BCNM Fight
 -----------------------------------
 require("scripts/globals/titles");
@@ -10,12 +10,6 @@ require("scripts/globals/magic");
 
 function onMobInitialize(mob)
     mob:addMod(dsp.mod.REGAIN, 50);
-end;
-
-function onMobSpawn(mob)
-end;
-
-function onMobFight(mob, target)
 end;
 
 function onMobDeath(mob, player, isKiller)

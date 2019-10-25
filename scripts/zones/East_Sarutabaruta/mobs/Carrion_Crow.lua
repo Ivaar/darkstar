@@ -1,10 +1,10 @@
 -----------------------------------
 -- Area: East Sarutabaruta
---  MOB: Carrion Crow
+--  Mob: Carrion Crow
 -----------------------------------
-require("scripts/globals/fieldsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkRegime(player,mob,93,1);
+    dsp.regime.checkRegime(player, mob, 93, 1, dsp.regime.type.FIELDS)
 end;

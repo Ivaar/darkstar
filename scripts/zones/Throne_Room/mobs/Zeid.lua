@@ -1,12 +1,9 @@
 -----------------------------------
 -- Area: Throne Room
---  MOB: Zeid
+--  Mob: Zeid
 -- Mission 9-2 BASTOK BCNM Fight
 -----------------------------------
-require("scripts/zones/Throne_Room/MobIDs");
-
-function onMobFight(mob, target)
-end;
+local ID = require("scripts/zones/Throne_Room/IDs");
 
 function onMobDeath(mob, player, isKiller)
     player:startEvent(32004,3,3,1,3,3,3,3,3);
@@ -18,8 +15,8 @@ end;
 function onEventFinish(player,csid,option)
     if (csid == 32004) then
 
-        local bfid = player:getVar("bcnm_instanceid");
-        local zeidId = ZEID_BCNM_OFFSET + (bfid - 1) * 4;
+        local bfid = player:getCharVar("bcnm_instanceid");
+        local zeidId = ID.mob.ZEID_BCNM_OFFSET + (bfid - 1) * 4;
         local playerCoords =
         {
             [1] = {-443      , -167 , -239     , 127},

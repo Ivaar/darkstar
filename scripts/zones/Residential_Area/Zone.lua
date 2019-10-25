@@ -3,10 +3,7 @@
 -- Zone: Residential_Area
 --
 -----------------------------------
-require("scripts/globals/settings");
-package.loaded["scripts/zones/Residential_Area/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Residential_Area/TextIDs");
+local ID = require("scripts/zones/Residential_Area/IDs")
 -----------------------------------
 
 function onInitialize(zone)
@@ -15,7 +12,7 @@ end;
 function onZoneIn(player,prevZone)
     local cs = -1;
 
-    player:setVar("PlayerMainJob",player:getMainJob());
+    player:setCharVar("PlayerMainJob",player:getMainJob());
     player:eraseStatusEffect(true);
     player:setPos(0,0,0,192);
 
@@ -30,4 +27,3 @@ end;
 
 function onEventFinish(player,csid,option)
 end;
-

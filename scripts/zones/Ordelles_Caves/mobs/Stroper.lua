@@ -1,10 +1,10 @@
 -----------------------------------
 -- Area: Ordelle's Caves
---  MOB: Stroper
+--  Mob: Stroper
 -----------------------------------
-require("scripts/globals/groundsofvalor");
+require("scripts/globals/regimes")
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    checkGoVregime(player,mob,660,2);
-end;
+    dsp.regime.checkRegime(player, mob, 660, 2, dsp.regime.type.GROUNDS)
+end

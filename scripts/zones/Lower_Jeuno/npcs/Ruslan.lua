@@ -4,9 +4,6 @@
 -- Involved In Quest: Wondering Minstrel
 -- !pos -19 -1 -58 245
 -----------------------------------
-package.loaded["scripts/zones/Lower_Jeuno/TextIDs"] = nil;
------------------------------------
-require("scripts/zones/Lower_Jeuno/TextIDs");
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
@@ -17,12 +14,12 @@ function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    wonderingstatus = player:getQuestStatus(WINDURST,WONDERING_MINSTREL);
+    wonderingstatus = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.WONDERING_MINSTREL);
     if (wonderingstatus == QUEST_ACCEPTED) then
-        prog = player:getVar("QuestWonderingMin_var")
+        prog = player:getCharVar("QuestWonderingMin_var")
         if (prog == 0) then                 -- WONDERING_MINSTREL + Rosewood Lumber: During Quest / Progression
             player:startEvent(10009,0,718);
-            player:setVar("QuestWonderingMin_var",1);
+            player:setCharVar("QuestWonderingMin_var",1);
         elseif (prog == 1) then             -- WONDERING_MINSTREL + Rosewood Lumber: Quest Objective Reminder
             player:startEvent(10010,0,718);
         end

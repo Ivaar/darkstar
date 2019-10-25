@@ -1,12 +1,9 @@
 -----------------------------------
 -- Area: Giddeus (145)
---   NM: Juu_Duzu_the_Whirlwind
+--   NM: Juu Duzu the Whirlwind
 -----------------------------------
 mixins = {require("scripts/mixins/job_special")};
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end;
-
-function onMobDespawn(mob)
 end;

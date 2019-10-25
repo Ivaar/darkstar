@@ -4,12 +4,10 @@
 -- Starts and Finishes Quest: Trial by Earth
 -- !pos 32 7 -41 236
 -----------------------------------
-package.loaded["scripts/zones/Port_Bastok/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/settings");
 require("scripts/globals/keyitems");
 require("scripts/globals/quests");
-require("scripts/zones/Port_Bastok/TextIDs");
+local ID = require("scripts/zones/Port_Bastok/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -17,11 +15,11 @@ end;
 
 function onTrigger(player,npc)
 
-    local TrialByEarth = player:getQuestStatus(BASTOK,TRIAL_BY_EARTH);
+    local TrialByEarth = player:getQuestStatus(BASTOK,dsp.quest.id.bastok.TRIAL_BY_EARTH);
     local WhisperOfTremors = player:hasKeyItem(dsp.ki.WHISPER_OF_TREMORS);
     local realday = tonumber(os.date("%j")); -- %M for next minute, %j for next day
-    local ThePuppetMaster = player:getQuestStatus(WINDURST,THE_PUPPET_MASTER);
-    local ThePuppetMasterProgress = player:getVar("ThePuppetMasterProgress");
+    local ThePuppetMaster = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.THE_PUPPET_MASTER);
+    local ThePuppetMasterProgress = player:getCharVar("ThePuppetMasterProgress");
 
     if (ThePuppetMaster == QUEST_ACCEPTED and ThePuppetMasterProgress == 1) then
         player:startEvent(256,0,329,0,1169,0,0,0,0);
@@ -29,7 +27,7 @@ function onTrigger(player,npc)
         player:startEvent(257,0,1169,0,0,0,0,0,0);
     elseif (ThePuppetMaster == QUEST_ACCEPTED and ThePuppetMasterProgress == 3) then
         player:startEvent(258);
-    elseif ((TrialByEarth == QUEST_AVAILABLE and player:getFameLevel(BASTOK) >= 6) or (TrialByEarth == QUEST_COMPLETED and realday ~= player:getVar("TrialByEarth_date"))) then
+    elseif ((TrialByEarth == QUEST_AVAILABLE and player:getFameLevel(BASTOK) >= 6) or (TrialByEarth == QUEST_COMPLETED and realday ~= player:getCharVar("TrialByEarth_date"))) then
         player:startEvent(249,0,dsp.ki.TUNING_FORK_OF_EARTH); -- Start and restart quest "Trial by Earth"
     elseif (TrialByEarth == QUEST_ACCEPTED and player:hasKeyItem(dsp.ki.TUNING_FORK_OF_EARTH) == false and WhisperOfTremors == false) then
         player:startEvent(284,0,dsp.ki.TUNING_FORK_OF_EARTH); -- Defeat against Titan : Need new Fork
@@ -59,31 +57,31 @@ function onEventFinish(player,csid,option)
     if (csid == 256) then
         if (player:getFreeSlotsCount() ~= 0) then
                 player:addItem(1169);
-                player:messageSpecial(ITEM_OBTAINED,1169);
-                player:setVar("ThePuppetMasterProgress",2);
+                player:messageSpecial(ID.text.ITEM_OBTAINED,1169);
+                player:setCharVar("ThePuppetMasterProgress",2);
         else
-            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,1169);
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,1169);
         end;
     elseif (csid == 257) then
         if (player:getFreeSlotsCount() ~= 0) then
             player:addItem(1169);
-            player:messageSpecial(ITEM_OBTAINED,1169);
+            player:messageSpecial(ID.text.ITEM_OBTAINED,1169);
         else
-            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,1169);
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,1169);
         end;
     elseif (csid == 258) then
-        player:setVar("ThePuppetMasterProgress",4);
+        player:setCharVar("ThePuppetMasterProgress",4);
     elseif (csid == 249 and option == 1) then
-        if (player:getQuestStatus(BASTOK,TRIAL_BY_EARTH) == QUEST_COMPLETED) then
-            player:delQuest(BASTOK,TRIAL_BY_EARTH);
+        if (player:getQuestStatus(BASTOK,dsp.quest.id.bastok.TRIAL_BY_EARTH) == QUEST_COMPLETED) then
+            player:delQuest(BASTOK,dsp.quest.id.bastok.TRIAL_BY_EARTH);
         end
-        player:addQuest(BASTOK,TRIAL_BY_EARTH);
-        player:setVar("TrialByEarth_date", 0);
+        player:addQuest(BASTOK,dsp.quest.id.bastok.TRIAL_BY_EARTH);
+        player:setCharVar("TrialByEarth_date", 0);
         player:addKeyItem(dsp.ki.TUNING_FORK_OF_EARTH);
-        player:messageSpecial(KEYITEM_OBTAINED,dsp.ki.TUNING_FORK_OF_EARTH);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.TUNING_FORK_OF_EARTH);
     elseif (csid == 284) then
         player:addKeyItem(dsp.ki.TUNING_FORK_OF_EARTH);
-        player:messageSpecial(KEYITEM_OBTAINED,dsp.ki.TUNING_FORK_OF_EARTH);
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.TUNING_FORK_OF_EARTH);
     elseif (csid == 252) then
         local item = 0;
         if (option == 1) then item = 17438;         -- Titan's Cudgel
@@ -93,23 +91,23 @@ function onEventFinish(player,csid,option)
         end
 
         if (player:getFreeSlotsCount() == 0 and (option ~= 5 or option ~= 6)) then
-            player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,item);
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,item);
         else
             if (option == 5) then
                 player:addGil(GIL_RATE*10000);
-                player:messageSpecial(GIL_OBTAINED,GIL_RATE*10000); -- Gils
+                player:messageSpecial(ID.text.GIL_OBTAINED,GIL_RATE*10000); -- Gils
             elseif (option == 6) then
                 player:addSpell(299); -- Avatar Titan Spell
-                player:messageSpecial(TITAN_UNLOCKED,0,0,1);
+                player:messageSpecial(ID.text.TITAN_UNLOCKED,0,0,1);
             else
                 player:addItem(item);
-                player:messageSpecial(ITEM_OBTAINED,item); -- Item
+                player:messageSpecial(ID.text.ITEM_OBTAINED,item); -- Item
             end
             player:addTitle(dsp.title.HEIR_OF_THE_GREAT_EARTH);
             player:delKeyItem(dsp.ki.WHISPER_OF_TREMORS); --Whisper of Tremors, as a trade for the above rewards
-            player:setVar("TrialByEarth_date", os.date("%j")); -- %M for next minute, %j for next day
+            player:setCharVar("TrialByEarth_date", os.date("%j")); -- %M for next minute, %j for next day
             player:addFame(BASTOK,30);
-            player:completeQuest(BASTOK,TRIAL_BY_EARTH);
+            player:completeQuest(BASTOK,dsp.quest.id.bastok.TRIAL_BY_EARTH);
         end
     end
 

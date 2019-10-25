@@ -1,12 +1,13 @@
 -----------------------------------
--- Area: Dynamis Windurst
---  NPC: Vanguard Inciter
+-- Area: Dynamis - Windurst
+--  Mob: Vanguard Inciter
 -----------------------------------
-mixins = {require("scripts/mixins/job_special")};
-require("scripts/globals/status");
-
-function onMobSpawn(mob)
-end;
+mixins =
+{
+    require("scripts/mixins/dynamis_beastmen"),
+    require("scripts/mixins/job_special")
+}
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end;
+end

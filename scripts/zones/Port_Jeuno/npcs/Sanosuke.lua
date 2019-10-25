@@ -4,10 +4,7 @@
 -- Involved in Quest: A Thief in Norg!?
 -- !pos -63 7 0 246
 -----------------------------------
-package.loaded["scripts/zones/Port_Jeuno/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/quests");
-require("scripts/zones/Port_Jeuno/TextIDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -15,8 +12,8 @@ end;
 
 function onTrigger(player,npc)
 
-    if (player:getQuestStatus(OUTLANDS,A_THIEF_IN_NORG) == QUEST_ACCEPTED) then
-        aThiefinNorgCS = player:getVar("aThiefinNorgCS");
+    if (player:getQuestStatus(OUTLANDS,dsp.quest.id.outlands.A_THIEF_IN_NORG) == QUEST_ACCEPTED) then
+        aThiefinNorgCS = player:getCharVar("aThiefinNorgCS");
         if (aThiefinNorgCS == 1) then
             player:startEvent(304);
         elseif (aThiefinNorgCS == 2) then
@@ -36,7 +33,7 @@ end;
 function onEventFinish(player,csid,option)
 
     if (csid == 304) then
-        player:setVar("aThiefinNorgCS",2);
+        player:setCharVar("aThiefinNorgCS",2);
     end
 
 end;

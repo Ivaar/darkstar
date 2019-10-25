@@ -4,20 +4,17 @@
 -- Involved in Quests: Tenshodo Menbership (before accepting)
 -- !pos 30 0.1 -2 245
 -----------------------------------
-package.loaded["scripts/zones/Lower_Jeuno/TextIDs"] = nil;
------------------------------------
 require("scripts/globals/quests");
-require("scripts/zones/Lower_Jeuno/TextIDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
 end;
 
 function onTrigger(player,npc)
-    local TenshodoMembership = player:getQuestStatus(JEUNO,TENSHODO_MEMBERSHIP);
-    local WildcatJeuno = player:getVar("WildcatJeuno");
+    local TenshodoMembership = player:getQuestStatus(JEUNO,dsp.quest.id.jeuno.TENSHODO_MEMBERSHIP);
+    local WildcatJeuno = player:getCharVar("WildcatJeuno");
 
-    if (player:getQuestStatus(JEUNO,LURE_OF_THE_WILDCAT_JEUNO) == QUEST_ACCEPTED and player:getMaskBit(WildcatJeuno,10) == false) then
+    if (player:getQuestStatus(JEUNO,dsp.quest.id.jeuno.LURE_OF_THE_WILDCAT) == QUEST_ACCEPTED and player:getMaskBit(WildcatJeuno,10) == false) then
         player:startEvent(10055);
     elseif (TenshodoMembership ~= QUEST_COMPLETED) then
         player:startEvent(208);
@@ -31,6 +28,6 @@ end;
 
 function onEventFinish(player,csid,option)
     if (csid == 10055) then
-        player:setMaskBit(player:getVar("WildcatJeuno"),"WildcatJeuno",10,true);
+        player:setMaskBit(player:getCharVar("WildcatJeuno"),"WildcatJeuno",10,true);
     end
 end;

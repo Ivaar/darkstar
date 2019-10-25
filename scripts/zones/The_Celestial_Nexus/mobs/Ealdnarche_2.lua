@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: The Celestial Nexus
---  MOB: Eald'Narche - Phase 2
+--  Mob: Eald'narche (Phase 2)
 -- Zilart Mission 16 BCNM Fight
 -----------------------------------
 require("scripts/globals/titles");
@@ -18,9 +18,6 @@ end;
 
 function onMobSpawn(mob)
     mob:setMobMod(dsp.mobMod.GA_CHANCE,25);
-end;
-
-function onMobFight(mob, target)
 end;
 
 function onMobDeath(mob, player, isKiller)

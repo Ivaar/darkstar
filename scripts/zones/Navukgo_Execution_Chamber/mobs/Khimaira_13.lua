@@ -1,15 +1,9 @@
 -----------------------------------
 -- Area: Navukgo Execution Chamber
--- MOB: Khimaira 13
+--  Mob: Khimaira 13
 -----------------------------------
 require("scripts/globals/allyassist");
 -----------------------------------
-
-function onMobInitialize(mob)
-end;
-
-function onMobEngaged(mob,target)
-end;
 
 function onMobFight(mob,target)
     local assist = mob:getLocalVar("assist");
@@ -18,9 +12,6 @@ function onMobFight(mob,target)
         dsp.ally.startAssist(mob);
         mob:setLocalVar("assist", 1);
     end
-end;
-
-function onSpellPrecast(mob, spell)
 end;
 
 function onMobDeath(mob, player, isKiller)
