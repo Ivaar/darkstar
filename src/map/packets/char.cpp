@@ -109,13 +109,12 @@ CCharPacket::CCharPacket(CCharEntity * PChar, ENTITYUPDATE type, uint8 updatemas
                 if (PChar->isNewPlayer())
                     ref<uint8>(0x2A) |= 0x80;
 
-                if (PChar->animation == ANIMATION_CHOCOBO)
+                if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_MOUNTED))
                 {
-                    ref<uint8>(0x20) = PChar->StatusEffectContainer->GetStatusEffect(EFFECT_MOUNTED)->GetPower() ? 0x40 : 0x20;
+                    ref<uint8>(0x20) |= (uint8)PChar->StatusEffectContainer->GetStatusEffect(EFFECT_MOUNTED)->GetSubPower();
                     ref<uint32>(0x34) = PChar->m_FieldChocobo;
-                }
-                else if (PChar->animation == ANIMATION_MOUNT)
                     ref<uint16>(0x44) = PChar->StatusEffectContainer->GetStatusEffect(EFFECT_MOUNTED)->GetPower() << 4;
+                }
             }
             if (PChar->PPet != nullptr)
             {

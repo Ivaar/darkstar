@@ -124,8 +124,8 @@ CZoneInPacket::CZoneInPacket(CCharEntity * PChar, int16 csid)
     ref<uint8>(0x1E) = PChar->GetHPP();
     ref<uint8>(0x1F) = PChar->animation;
 
-    if (PChar->animation == ANIMATION_CHOCOBO)
-        ref<uint8>(0x20) = PChar->StatusEffectContainer->GetStatusEffect(EFFECT_MOUNTED)->GetPower() ? 0x40 : 0x20;
+    if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_MOUNTED))
+        ref<uint8>(0x20) = (uint8)PChar->StatusEffectContainer->GetStatusEffect(EFFECT_MOUNTED)->GetSubPower();
 
     ref<uint8>(0x21) = PChar->GetGender() * 128 + (1 << PChar->look.size);
 
